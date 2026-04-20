@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"primary-container": "#d4af37", "primary-fixed": "#ffe088", error: "#ffb4ab", "on-tertiary": "#303130", "on-error-container": "#ffdad6", "outline-variant": "#4d4635", "tertiary-fixed-dim": "#c7c6c4", "on-tertiary-fixed-variant": "#464746", tertiary: "#cfcecc", "on-secondary": "#2f3131", "surface-container-lowest": "#0e0e0e", "secondary-fixed-dim": "#c6c6c6", "surface-container": "#201f1f", "on-surface": "#e5e2e1", "on-primary-container": "#554300", "surface-bright": "#393939", "surface-tint": "#e9c349", "surface-container-low": "#1c1b1b", "on-primary-fixed-variant": "#574500", "inverse-surface": "#e5e2e1", "surface-container-high": "#2a2a2a", "tertiary-container": "#b3b3b1", "inverse-on-surface": "#313030", "secondary-fixed": "#e3e2e2", secondary: "#c6c6c6", "surface-variant": "#353534", "on-secondary-container": "#b8b8b8", "on-surface-variant": "#d0c5af", "on-primary": "#3c2f00", "on-primary-fixed": "#241a00", "error-container": "#93000a", "secondary-container": "#484949", "on-tertiary-container": "#444544", "on-background": "#e5e2e1", "on-error": "#690005", "primary-fixed-dim": "#e9c349", "on-secondary-fixed-variant": "#464747", "inverse-primary": "#735c00", "on-secondary-fixed": "#1a1c1c", background: "#131313", "surface-dim": "#131313", "surface-container-highest": "#353534", primary: "#f2ca50", surface: "#131313", outline: "#99907c", "on-tertiary-fixed": "#1b1c1b", "tertiary-fixed": "#e3e2e0"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, fontFamily: {headline: ["Noto Serif"], body: ["Manrope"], label: ["Manrope"], display: "Noto Serif"}}}};</script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    
+        .splide__pagination__page {
+            background: #4d4635 !important;
+            opacity: 0.5;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+        .splide__pagination__page.is-active {
+            background: #d4af37 !important;
+            opacity: 1;
+            transform: scale(1);
+        }
+        .splide__arrow svg {
+            display: none;
+        }
+        .splide__arrow {
+            border: 1px solid rgba(212, 175, 55, 0.2) !important;
+        }
+    </style>
+<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet"/></head>
+<body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-stone-950/70 backdrop-blur-xl shadow-2xl shadow-black/40">
+<div class="flex justify-between items-center px-12 py-6 max-w-screen-2xl mx-auto">
+<div class="font-serif italic text-2xl text-yellow-500">The Midnight Gala</div>
+<div class="hidden md:flex gap-12 items-center">
+<a class="font-sans uppercase tracking-widest text-xs text-stone-400 hover:text-stone-200 transition-colors" href="#">Memory Wall</a>
+<a class="font-sans uppercase tracking-widest text-xs text-stone-400 hover:text-stone-200 transition-colors" href="#">Class Yearbook</a>
+<a class="font-sans uppercase tracking-widest text-xs text-stone-400 hover:text-stone-200 transition-colors" href="#">Messages</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="bg-stone-800/50 hover:bg-stone-700/50 p-2 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined text-yellow-500">account_circle</span>
+</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-lg hover:scale-95 duration-200 ease-in-out">
+                    Sign Guestbook
+                </button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-end pt-32 pb-24 px-12 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="splide w-full h-full" id="hero-carousel">
+<div class="splide__track w-full h-full">
+<ul class="splide__list">
+<li class="splide__slide">
+<img alt="Gala Ballroom" class="w-full h-full object-cover opacity-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqrpLmbdnci9TTZct-9hsx6T7H132WJ1AY1n9kwa09bG7cviyKn5O_lGPMCGxrA1lk0DfUq_ifg0EjOuufQ8zcDrvs2cMPQ97lc0zGYtkNRUI55nxzDK6tkQjMfRMFCz-n8Jwk4OQNkEG7pQRomCGdG2Loauln5ARf5uu03ZbGl1GvoKAlJJETzAjKDvycF7Mtu79bH36tgC4GYzB4-AkNzKAlG8KROT93ZNWTyNhKQJ1sMmW1TeZgfIzuIpN39-YHolI0MxmmTBU"/>
+</li>
+<li class="splide__slide">
+<img alt="Class Laughing" class="w-full h-full object-cover opacity-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN_E_kf4Yv_I0MJ0n3ojgDUdWmS031Kt9uvH5QROSsaHT8OXJGz3fH7-ej7--0zej64_MciTBV-F5Djtf-2xjPLzFtAcfg-MxDtQYLqxWNFp68B3qlNs6LHmKY7GUClHub67KtTHKdcR0mw6UE3CRKs9i7FI-UKyA7wizYGQj4xIH6vMfKDa92aJrVykiFUHw30JLB4wocH1hrEwhk6z5J1YZ2EqVVdbLRsa4lUkhRWnSJzBEwH2PRSbyr3F2nkXVAo7Xl4gxc8j4"/>
+</li>
+<li class="splide__slide">
+<img alt="Theater Hall" class="w-full h-full object-cover opacity-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5162YLHP0KGp4MJU36onqCQbsOdMzc3Q2-dDMpgZVh_I3y5TaGbcr0FaKKtkwozjGg7azg5FWT3b2snYSzp7h42K5IsrlE0Nst38M0GFuTlPu_aCYGKc6-wIQIPOWW8lMswLD04qUBD4CLuDjtOdLaKusp6gS-rBP36oK9tIjV2bWhxUa_49zpp50UiOvdZ4qS7XT5XdRGk6qlDhRX9wkv-7EEQ-8ztEna4E_cTc6MSjCwUDXfGVm__3CwZIFU1c4Bawv7GouByw"/>
+</li>
+</ul>
+</div>
+<div class="splide__arrows absolute inset-y-0 w-full flex justify-between items-center px-6 pointer-events-none">
+<button class="splide__arrow splide__arrow--prev pointer-events-auto bg-stone-900/50 hover:bg-stone-800 transition-colors p-2 rounded-full !opacity-100">
+<span class="material-symbols-outlined text-primary">chevron_left</span>
+</button>
+<button class="splide__arrow splide__arrow--next pointer-events-auto bg-stone-900/50 hover:bg-stone-800 transition-colors p-2 rounded-full !opacity-100">
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</button>
+</div>
+<ul class="splide__pagination !bottom-8"></ul>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-8">
+<div class="md:col-span-8">
+<span class="font-sans text-primary uppercase tracking-[0.4em] text-sm mb-6 block">Aurelian Legacy • Class of 2024</span>
+<h1 class="font-serif italic text-6xl md:text-8xl lg:text-9xl text-on-surface leading-tight -ml-1 md:-ml-2 tracking-tighter">
+                        The Midnight Gala: <br/>Our Final Chapter
+                    </h1>
+</div>
+<div class="md:col-span-4 flex flex-col justify-end gap-8 pb-4">
+<p class="font-body text-on-surface-variant text-lg leading-relaxed">
+                        A tribute to the moments that defined us, the friendships that shaped us, and the future that awaits us.
+                    </p>
+<div class="flex gap-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-4 text-sm font-bold uppercase tracking-widest rounded-lg hover:scale-95 transition-transform">
+                            Explore Memories
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Message from the Principal -->
+<section class="py-32 px-12 bg-surface-container-low relative">
+<div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div class="relative group">
+<div class="absolute -inset-4 border border-outline-variant/15 rounded-xl group-hover:border-primary/20 transition-colors duration-500"></div>
+<img alt="Principal Portrait" class="relative rounded-lg grayscale hover:grayscale-0 transition-all duration-700 w-full aspect-[4/5] object-cover" data-alt="Close-up portrait of a distinguished senior academic professional in a library setting, warm lighting, scholarly atmosphere, high-end editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXviQCPc42qKA6NVndPFavDfa6ne7KVXpfbWLU7EmcxhNlIC1YDU0e13lipGRB8hX13uCYou4gTgroG2ykdVxda-fc30yYRx9oYHDrc_44ZknidcQyLkUYwkHFFRoS7TozFVJiPRk7FicBISmS5j2K45dqzGLoBcfgOIQOBlrENvd8Qx3niq-nVh0e9_UfLiJaFmYbUITo7J-T4QG6uVchqd-NijEzkEeKwfAEMygcW28Ysl1VRU9eeDj18OrywXDbMKPXLfCJtF8"/>
+</div>
+<div>
+<h2 class="font-serif italic text-4xl md:text-5xl text-primary mb-8">A Message from the Principal</h2>
+<div class="space-y-6">
+<span class="material-symbols-outlined text-primary-container text-5xl opacity-30">format_quote</span>
+<p class="font-serif text-2xl text-on-surface leading-relaxed italic">
+                            "You are not just leaving these halls; you are carrying the spirit of this institution into a world that needs your brilliance. The Aurelian Legacy is not written in stone, but in the lives you are about to lead."
+                        </p>
+<div class="pt-6">
+<p class="font-sans font-bold text-on-surface uppercase tracking-widest">Dr. Julian Vance</p>
+<p class="font-sans text-xs text-on-surface-variant uppercase tracking-widest">Head of Academy</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Memory Wall Preview -->
+<section class="py-32 px-12 bg-surface overflow-hidden">
+<div class="max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-16 gap-4">
+<h2 class="font-serif italic text-5xl md:text-6xl text-on-surface tracking-tight">Memory Wall</h2>
+<a class="font-sans text-xs text-primary uppercase tracking-[0.3em] hover:opacity-70 transition-opacity flex items-center gap-2" href="#">
+                        View All Entries <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Asymmetric Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[800px]">
+<div class="md:col-span-8 relative group overflow-hidden rounded-xl bg-surface-container-low">
+<img alt="Memory 1" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="Candid shot of graduating students laughing and tossing confetti in a historic campus courtyard, vibrant energy, shallow depth of field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN_E_kf4Yv_I0MJ0n3ojgDUdWmS031Kt9uvH5QROSsaHT8OXJGz3fH7-ej7--0zej64_MciTBV-F5Djtf-2xjPLzFtAcfg-MxDtQYLqxWNFp68B3qlNs6LHmKY7GUClHub67KtTHKdcR0mw6UE3CRKs9i7FI-UKyA7wizYGQj4xIH6vMfKDa92aJrVykiFUHw30JLB4wocH1hrEwhk6z5J1YZ2EqVVdbLRsa4lUkhRWnSJzBEwH2PRSbyr3F2nkXVAo7Xl4gxc8j4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<span class="bg-primary text-on-primary text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 inline-block">Flashback</span>
+<h3 class="font-serif text-2xl text-on-surface">The Summer Solstice Festival</h3>
+<p class="font-sans text-xs text-stone-400 mt-2">Posted by Sarah J. • 2 days ago</p>
+</div>
+</div>
+<div class="md:col-span-4 grid grid-rows-2 gap-6">
+<div class="relative group overflow-hidden rounded-xl bg-surface-container-low">
+<img alt="Memory 2" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="Interior of a classic theater hall with plush red seats and stage lights, dramatic shadows and golden highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5162YLHP0KGp4MJU36onqCQbsOdMzc3Q2-dDMpgZVh_I3y5TaGbcr0FaKKtkwozjGg7azg5FWT3b2snYSzp7h42K5IsrlE0Nst38M0GFuTlPu_aCYGKc6-wIQIPOWW8lMswLD04qUBD4CLuDjtOdLaKusp6gS-rBP36oK9tIjV2bWhxUa_49zpp50UiOvdZ4qS7XT5XdRGk6qlDhRX9wkv-7EEQ-8ztEna4E_cTc6MSjCwUDXfGVm__3CwZIFU1c4Bawv7GouByw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-serif text-xl text-on-surface">Opening Night: Macbeth</h3>
+<p class="font-sans text-xs text-stone-400 mt-1">Arts &amp; Culture</p>
+</div>
+</div>
+<div class="relative group overflow-hidden rounded-xl bg-surface-container-low">
+<img alt="Memory 3" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="Groups of students studying together in a modern sunlight-filled library with wooden tables and large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzii8TrO7qxxwHwXCPrQZ4GynsgTUKXXsc27m9krNrbohU1PJyQWBfODavaaFFSwvIq0jNGu3sFjZjE7b-FMO4Ql5mEP0piRq23MSxNhbFA5htLg5MtA5iKL3xa78kuRJ3F4TkzlSO-BNPWkzhsxJBWjKigTmieSktF8zOv675qFYlNRMdyLY-D4ZX_-BDIW-mAF6rK9yvVRpUCGcaNBNaD9aq1jX9GS-9in6SmruwX60a76_EKbZQOSPkFsTGVMS8gTKeoaYzIlc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-serif text-xl text-on-surface">Late Night Study Sessions</h3>
+<p class="font-sans text-xs text-stone-400 mt-1">Everyday Life</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / Archive Invite -->
+<section class="py-24 px-12 bg-surface-container-lowest flex flex-col items-center text-center">
+<div class="max-w-2xl">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">history_edu</span>
+<h2 class="font-serif italic text-4xl text-on-surface mb-6">Preserve the Legacy</h2>
+<p class="font-body text-on-surface-variant mb-10">Sign up to receive the digital Class Yearbook and updates on alumni gatherings.</p>
+<form class="w-full flex flex-col md:flex-row gap-4">
+<input class="flex-1 bg-surface-container-lowest border-0 border-b border-outline-variant/30 text-on-surface font-sans text-xs tracking-widest px-0 py-4 focus:ring-0 focus:border-primary transition-colors" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+<button class="bg-primary text-on-primary px-10 py-4 text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-primary-container transition-colors">
+                        Join Archive
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-950 w-full py-16 px-12 border-t border-stone-800/20">
+<div class="flex flex-col items-center gap-8 w-full max-w-screen-2xl mx-auto">
+<div class="font-serif text-lg text-stone-400">The Midnight Gala</div>
+<div class="flex gap-10">
+<a class="font-sans text-stone-600 text-[10px] tracking-widest uppercase hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-sans text-stone-600 text-[10px] tracking-widest uppercase hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Contact Committee</a>
+<a class="font-sans text-stone-600 text-[10px] tracking-widest uppercase hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Archive</a>
+</div>
+<div class="font-sans text-stone-500 text-[10px] tracking-widest uppercase mt-4">
+                © Class of 2024 • The Midnight Gala • Forging Futures
+            </div>
+</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Splide('#hero-carousel', {
+      type: 'fade',
+      rewind: true,
+      autoplay: true,
+      interval: 5000,
+      speed: 1200,
+      arrows: true,
+      pagination: true,
+      pauseOnHover: false,
+      drag: true,
+      keyboard: true
+    }).mount();
+  });
+</script></body></html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Class Yearbook | The Midnight Gala</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#d4af37",
+                    "primary-fixed": "#ffe088",
+                    "error": "#ffb4ab",
+                    "on-tertiary": "#303130",
+                    "on-error-container": "#ffdad6",
+                    "outline-variant": "#4d4635",
+                    "tertiary-fixed-dim": "#c7c6c4",
+                    "on-tertiary-fixed-variant": "#464746",
+                    "tertiary": "#cfcecc",
+                    "on-secondary": "#2f3131",
+                    "surface-container-lowest": "#0e0e0e",
+                    "secondary-fixed-dim": "#c6c6c6",
+                    "surface-container": "#201f1f",
+                    "on-surface": "#e5e2e1",
+                    "on-primary-container": "#554300",
+                    "surface-bright": "#393939",
+                    "surface-tint": "#e9c349",
+                    "surface-container-low": "#1c1b1b",
+                    "on-primary-fixed-variant": "#574500",
+                    "inverse-surface": "#e5e2e1",
+                    "surface-container-high": "#2a2a2a",
+                    "tertiary-container": "#b3b3b1",
+                    "inverse-on-surface": "#313030",
+                    "secondary-fixed": "#e3e2e2",
+                    "secondary": "#c6c6c6",
+                    "surface-variant": "#353534",
+                    "on-secondary-container": "#b8b8b8",
+                    "on-surface-variant": "#d0c5af",
+                    "on-primary": "#3c2f00",
+                    "on-primary-fixed": "#241a00",
+                    "error-container": "#93000a",
+                    "secondary-container": "#484949",
+                    "on-tertiary-container": "#444544",
+                    "on-background": "#e5e2e1",
+                    "on-error": "#690005",
+                    "primary-fixed-dim": "#e9c349",
+                    "on-secondary-fixed-variant": "#464747",
+                    "inverse-primary": "#735c00",
+                    "on-secondary-fixed": "#1a1c1c",
+                    "background": "#131313",
+                    "surface-dim": "#131313",
+                    "surface-container-highest": "#353534",
+                    "primary": "#f2ca50",
+                    "surface": "#131313",
+                    "outline": "#99907c",
+                    "on-tertiary-fixed": "#1b1c1b",
+                    "tertiary-fixed": "#e3e2e0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Manrope', sans-serif;
+        }
+        .serif-italic { font-family: 'Noto Serif', serif; font-style: italic; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/30">
+<!-- TopAppBar Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 bg-stone-950/70 backdrop-blur-xl shadow-2xl shadow-black/40">
+<div class="flex justify-between items-center px-12 py-6 max-w-screen-2xl mx-auto">
+<div class="font-serif italic text-2xl text-yellow-500">The Midnight Gala</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="font-sans uppercase tracking-widest text-xs text-stone-400 hover:text-stone-200 transition-colors" href="#">Memory Wall</a>
+<a class="font-sans uppercase tracking-widest text-xs text-yellow-500 border-b border-yellow-500/50 pb-1" href="#">Class Yearbook</a>
+<a class="font-sans uppercase tracking-widest text-xs text-stone-400 hover:text-stone-200 transition-colors" href="#">Messages</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2 text-xs font-sans uppercase tracking-widest hover:scale-95 transition-all duration-200">
+                    Sign Guestbook
+                </button>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">account_circle</span>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-screen-2xl mx-auto">
+<!-- Header Section -->
+<header class="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="max-w-2xl">
+<h1 class="font-headline italic text-5xl md:text-7xl tracking-tight text-primary mb-4 leading-none">
+                    The Aurelian <br/>Legacy
+                </h1>
+<p class="font-body text-on-surface-variant text-lg max-w-md">
+                    A curated collection of the Class of 2024. Capturing the essence of those who forged the path and those destined for greatness.
+                </p>
+</div>
+<!-- Elegant Search Component -->
+<div class="relative w-full md:w-96 group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-primary/50 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="w-full bg-surface-container-lowest border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-primary text-on-surface pl-12 py-4 font-body placeholder:text-stone-600 tracking-wide transition-all" placeholder="Search classmates..." type="text"/>
+</div>
+</header>
+<!-- Category Chips -->
+<div class="flex flex-wrap gap-3 mb-12">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary text-xs font-sans uppercase tracking-widest">All Scholars</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-sans uppercase tracking-widest hover:bg-surface-container-high transition-colors">Arts &amp; Culture</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-sans uppercase tracking-widest hover:bg-surface-container-high transition-colors">Innovators</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant text-xs font-sans uppercase tracking-widest hover:bg-surface-container-high transition-colors">Legacy Leaders</button>
+</div>
+<!-- Student Directory Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+<!-- Card 1 -->
+<div class="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Sophisticated portrait of a young man in a dark velvet blazer, moody warm studio lighting, golden highlights, cinematic editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNyJGfnX1r6D0mkkI2IH4erTmRDdRkGcP9td2WZwQJR-v7Do6tOc4zP55pUurXjYozFzOFov4G24GWCrDWxZ65OH3fh2TLPu0KUxO0dNNPRqg0UxB79wHLF0uHD3zlwjYTMJ8tBvYpaihj8SXSOo3A3s3ZocABf7mDj4wGRNGw6a8G9NSHw19gkvLgY89XPJN919YPfrarvVoYmjzVII671BLePOp3v7zB1c6Z5wAHdAkIG92ECd5ESzReJs-NeBV0S-fXTpcp_Qg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="p-8">
+<span class="font-sans uppercase tracking-[0.2em] text-[10px] text-primary mb-2 block">Most Likely to Lead a Revolution</span>
+<h3 class="font-headline italic text-2xl text-on-surface mb-4">Julian Vane</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed italic">
+                        "The future belongs to those who see it before it becomes obvious. See you all at the top."
+                    </p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Elegant close-up of a young woman with braided hair, wearing silk gold jewelry, soft ambient sunset lighting, high-end photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzVHgah2jUYrCdmrVAeax0VW_9lVVm1xzx3CHpTzziyJ6Lip-j1p3VYba5QG5UHWKFVm6ieKt50dFjemRKkpAyaD50ngplhTz9Os7kR-JmvUZRmxcPIBjkTZJ0Ebffcd5A_mRxtOcspNZgI65Qsn0_3f0BJBDFA39tZ-8aZA4XeU9HzS56Ny9XRy3RJtylJJY14-80WXGnreDlksI0oi9qif9ICxmzBhF8kWsb5VE7o9OL53lCKMFOrcuAl3XbFa8ePA2F3kbT9zI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="p-8">
+<span class="font-sans uppercase tracking-[0.2em] text-[10px] text-primary mb-2 block">Most Likely to Win a Nobel</span>
+<h3 class="font-headline italic text-2xl text-on-surface mb-4">Elena Moretti</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed italic">
+                        "In the pursuit of knowledge, let us never lose our sense of wonder. Forever curious."
+                    </p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Artistic profile of a young man with glasses, creative studio lighting with blue and gold hues, modern scholarly aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY-_9lee_tpFqt8E25Aqq7lgEcCbs41FTZgd5OL3Yg9tDl6fAp3cv5a0G02guSM0_SxEaWHwAx-9dhOVtm4Bh3RBn20B9OVEp-t3nfre3fzbWWu4u8kIfukfbf303qtVQnN4ohokD5TJZHOUB5r-X0r06R3ObAoVV6unqkzW7PP6_QdGbqj2zULe9ufnDOTMzRd3HujRiC73Ds4QwCsNPOanSDwXhVz-N5Gy48dl7PmoGe-gljvPdTlKbIKz28LQcGJ3XYe7knFVQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="p-8">
+<span class="font-sans uppercase tracking-[0.2em] text-[10px] text-primary mb-2 block">Most Likely to Hack the Mainframe</span>
+<h3 class="font-headline italic text-2xl text-on-surface mb-4">Marcus Chen</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed italic">
+                        "Code is poetry. I hope our lives are written in the most elegant syntax imaginable."
+                    </p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Stunning portrait of a young woman with a classic updo, wearing pearls, soft focused library background, warm nostalgic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDusYheM-oy1rNdW3LRJ66Zq-2_1ZEQjhuH3UgfxFLh1n7P5f7Rlnnl20fM6PKUG-n8jifS0l_XcZvST4UotkRo2-N5IqOQqoHi8xen0lY899VGCpWAfWQROfNKpc4BkT8vchJhOw3stj9a1PV_-gpyjfZVl-9sEiVL9kaNk9LfkXJet23XUTJYJ7m8l-rtySXsk--V-hUBCe2LLAZN9xztN4GC3RFpIUiDa5gZxZSNiuXde8aRoyAJLm5AGHefwNHAhIIkkPZo2QE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="p-8">
+<span class="font-sans uppercase tracking-[0.2em] text-[10px] text-primary mb-2 block">Most Likely to Write a Bestseller</span>
+<h3 class="font-headline italic text-2xl text-on-surface mb-4">Sophia Sterling</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed italic">
+                        "Every ending is just a preamble. This has been a beautiful chapter with you all."
+                    </p>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Young man in a white formal shirt, standing in a sunlit garden, soft bokeh, cinematic film grain, classic portraiture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNEgLVszEpBF3z3aKMiYXOxr4FwMF6IdyxMnZp89J3en9Y7OSCYDEfOf-0OvSavWqFJb96V-ANxeuUCKNx59z-0ULBB5arS0pV0WOOdXJDByAo1qgErjv_ZRq92FldmQXOxK4BLjDqQBmRpfdPYsKXIA6Iq1hUxxoBIoy3seKspAqqjfBNFKt2tMM5jfCRyfBt5iay3RHiRXHdL0Nkdb7fK4DNk7NDWeYA95RkfQzw-GAV8OrCLE9vIskKyikaMYre8ttQlebH05U"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="p-8">
+<span class="font-sans uppercase tracking-[0.2em] text-[10px] text-primary mb-2 block">Most Likely to Cure Boredom</span>
+<h3 class="font-headline italic text-2xl text-on-surface mb-4">Leo Fitzwilliam</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed italic">
+                        "Life is too short for boring conversations and bad coffee. Stay electric."
+                    </p>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Portrait of a woman with short hair, bold silver jewelry, sharp fashion photography, dramatic lighting on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzu3EaBFaJe9m9zEvSqIllGGVVYW5apdf_HydHs10PeY-_S-eUOuwggrzgLOl41yDOWr4ry22u2Fuf6UYgS3-OaaCwKhc-On95cM2YC0j1OEPFl4uVQlAFYBg-HgWOv_G5e9AWOsc1PR-R2amldvHLEr0vnEleoCnb3wgelWB5WfFESZkyBTB05HqW9YkNPc11blHPxubNv9uaxa6u0fiEDvkf4QnDZNNbcioi9ie5My8fmHaQ85G1Uu6rr3xVphiy_KYqzX9YlvA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="p-8">
+<span class="font-sans uppercase tracking-[0.2em] text-[10px] text-primary mb-2 block">Most Likely to Change the World</span>
+<h3 class="font-headline italic text-2xl text-on-surface mb-4">Aria Thorne</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed italic">
+                        "Don't just watch the stars, be the light that they're all looking for."
+                    </p>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Young man with a contemplative look, wearing a tuxedo, warm architectural backdrop with gold accents, refined aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAN17IrTctU_UNgvMwF_cFHlDbn9yRuwHY1QQUKY1k4V3xBinu9-0PKD66Bm95D4gwjIdHCBY5eONesmLHHRVzSdUrwmrMmf6eL-5RWH-LW3IqUR92Km610sks6CvdDhIMMm8x32wRQNueLZjKNjMW9eZc1VBZuuSoOLrqg3zR6s8pOObFnMKvGl_iJganUTSv784ToOTpLEoj0gTufenNPG28yW1qpbjartfjtU52LG-FNZGt3RBkKOCXQ5kF4Cvpz-GYtfkEBfg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="p-8">
+<span class="font-sans uppercase tracking-[0.2em] text-[10px] text-primary mb-2 block">Most Likely to Own an Island</span>
+<h3 class="font-headline italic text-2xl text-on-surface mb-4">Nathaniel Drake</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed italic">
+                        "Fortune favors the bold, but it also favors those who have a very good plan."
+                    </p>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
+<div class="aspect-[4/5] overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Soft focus portrait of a young woman laughing, holding a camera, natural lighting, airy dreamlike cinematic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL3eRZYI93fpVRPaZqau9Tgjq4YHza6E-Yth5CsQ2nSOvurUoiiulrbaJA_yNJgnyl_UD8tCfuDIujB8Z4F1z0W_5wvwFn1lJnDThD3ck4QYFp2NtpqcE9TU0bwVqaUTfb3hUU_xUdbMW39wD54l25f_xxC727PlVxDX2zXNdE5ZYzB4uFjqLV7uo22XiG592jjbcZqMkS5lBS6C0BfzG_vBNLJGJQ22i-VePlBkeQqFmhnDQEuc_jykmoq8kLujaJhrpC_ku94KU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="p-8">
+<span class="font-sans uppercase tracking-[0.2em] text-[10px] text-primary mb-2 block">Most Likely to Freeze Time</span>
+<h3 class="font-headline italic text-2xl text-on-surface mb-4">Chloe Winters</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed italic">
+                        "Every photograph is a way of holding onto a moment that's already gone. I'm keeping all of ours."
+                    </p>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-24 flex justify-center items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-body text-sm">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all font-body text-sm">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all font-body text-sm">3</button>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 px-12 border-t border-stone-800/20 bg-stone-950 flex flex-col items-center gap-8">
+<div class="font-serif text-lg text-stone-400">Class of 2024</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-sans text-stone-500 text-[10px] tracking-widest uppercase hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-sans text-stone-500 text-[10px] tracking-widest uppercase hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Contact Committee</a>
+<a class="font-sans text-stone-500 text-[10px] tracking-widest uppercase hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Archive</a>
+</div>
+<div class="font-sans text-stone-500 text-[10px] tracking-widest uppercase">
+            © Class of 2024 • The Midnight Gala • Forging Futures
+        </div>
+</footer>
+</body></html>
