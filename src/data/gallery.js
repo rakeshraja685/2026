@@ -236,15 +236,12 @@ export const galleryPhotos = [
 export const galleryCategories = ["All", "Group"];
 
 export const galleryVideos = [
-  { id: "v1", src: "/images/all images/VID-20260410-WA0094.mp4", title: "Farewell Highlights", date: "April 10, 2026" },
-  { id: "v2", src: "/images/all images/VID-20260410-WA0097.mp4", title: "Quick Moments", date: "April 10, 2026" },
-  { id: "v3", src: "/images/all images/VID-20260410-WA0105.mp4", title: "Group Fun", date: "April 10, 2026" },
-  { id: "v4", src: "/images/all images/VID-20260410-WA0114.mp4", title: "Dance Time", date: "April 10, 2026" },
-  { id: "v5", src: "/images/all images/VID-20260410-WA0124.mp4", title: "Candid Video", date: "April 10, 2026" },
-  { id: "v6", src: "/images/all images/VID-20260410-WA0125.mp4", title: "Campus Walk", date: "April 10, 2026" },
-  { id: "v7", src: "/images/all images/VID-20260410-WA0126.mp4", title: "Class Together", date: "April 10, 2026" },
-  { id: "v8", src: "/images/all images/VID-20260413-WA0357.mp4", title: "April 13 Vibes", date: "April 13, 2026" },
-  { id: "v9", src: "/images/all images/VID-20260413-WA0358.mp4", title: "Farewell Night", date: "April 13, 2026" },
-  { id: "v10", src: "/images/all images/Snapchat-947426562.mp4", title: "Snap Video", date: "April 2026" },
-  { id: "v11", src: "/images/all images/VID_20260410_105513.mp4", title: "Big Farewell Moment", date: "April 10, 2026" },
+  { id: "v1", src: "https://drive.google.com/file/d/1HWbQOW2GGFywAcOfVjtAwXdd9JFBPeKz/preview", title: "Farewell Highlights", date: "April 10, 2026" },
+  { id: "v2", src: "https://drive.google.com/file/d/18yeHow0orV0fnGm5BpljV_i_wARLA0-g/preview", title: "Quick Moments", date: "April 10, 2026" },
+  { id: "v3", src: "https://drive.google.com/file/d/1GImeUDLedZNrw904Dhgem9aqr-xr2fKy/preview", title: "Group Fun", date: "April 10, 2026" },
+  { id: "v4", src: "https://drive.google.com/file/d/1iUzjmhbU9iyRTKfDWv90gxtOhbKhYE0N/preview", title: "Dance Time", date: "April 10, 2026" },
+  { id: "v5", src: "https://drive.google.com/file/d/1PqEcH8pzInl-Gtk1hLAUUkbR1-jBtNIr/preview", title: "Candid Video", date: "April 10, 2026" },
+  { id: "v6", src: "https://drive.google.com/file/d/1S6aDbkjso47URAqVwq5WhlTgQ23CAb_Z/preview", title: "Campus Walk", date: "April 13, 2026" },
+  { id: "v7", src: "https://drive.google.com/file/d/1x3z1hCnpcdxVLWNfG-MNCkFY0rf7-xKT/preview", title: "Farewell Night", date: "April 13, 2026" },
+  { id: "v8", src: "https://drive.google.com/file/d/11a2E_WrF8yOuGvCl26ICuip6AjTJndB3/preview", title: "Big Farewell Moment", date: "April 2026" },
 ];

@@ -1,17 +1,6 @@
-import { useRef, useState } from "react";
 import { galleryVideos } from "../data/gallery";
 
 export default function Videos() {
-  const [playingVideo, setPlayingVideo] = useState(null);
-  const videoRefs = useRef({});
-
-  function handleVideoClick(id) {
-    if (playingVideo && playingVideo !== id && videoRefs.current[playingVideo]) {
-      videoRefs.current[playingVideo].pause();
-    }
-    setPlayingVideo(id);
-  }
-
   return (
     <div className="pt-12 pb-24 px-6 md:px-12 max-w-screen-2xl mx-auto">
       {/* Header */}
@@ -36,26 +25,15 @@ export default function Videos() {
             key={video.id}
             className="group relative rounded-2xl overflow-hidden bg-surface-container-low border border-surface-container-highest hover:border-primary/40 transition-all duration-500 shadow-lg hover:shadow-primary/10 hover:shadow-2xl"
           >
-            {/* Video Element */}
-            <div className="relative aspect-video bg-black">
-              <video
-                ref={(el) => { videoRefs.current[video.id] = el; }}
+            {/* Video Element (Google Drive iFrame) */}
+            <div className="relative w-full overflow-hidden" style={{ paddingTop: '56.25%' }}>
+              <iframe
                 src={video.src}
-                controls
-                preload="metadata"
-                onClick={() => handleVideoClick(video.id)}
-                className="w-full h-full object-cover"
-                style={{ display: "block" }}
-              >
-                Your browser does not support the video tag.
-              </video>
-
-              {/* Play overlay hint */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-0 opacity-100 transition-opacity duration-300 bg-black/20">
-                <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
-                  <span className="material-symbols-outlined text-white text-3xl ml-1">play_arrow</span>
-                </div>
-              </div>
+                className="absolute top-0 left-0 w-full h-full border-0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                title={video.title}
+              ></iframe>
             </div>
 
             {/* Video Info */}
