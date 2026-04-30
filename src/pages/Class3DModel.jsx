@@ -80,7 +80,7 @@ export default function Class3DModel() {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.5; // Significantly reduced from 0.85 to fix brightness
+    renderer.toneMappingExposure = 0.7; // Brightened up slightly from 0.5 so mobile screens can see
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     mount.appendChild(renderer.domElement);
     rendererRef.current = renderer;
@@ -245,6 +245,9 @@ export default function Class3DModel() {
               applyAniso(mat.aoMap);
               applyAniso(mat.emissiveMap);
 
+              // Make the material double-sided so the room is never invisible from the outside
+              mat.side = THREE.DoubleSide;
+
               // Almost completely disable normal map bumpiness to smoothen photogrammetry artifacts
               if (mat.normalMap) mat.normalScale.set(0.05, 0.05);
 
@@ -282,8 +285,9 @@ export default function Class3DModel() {
 
         scene.add(model);
 
-        // Spawn camera just inside the entrance
-        camera.position.set(0, 1.65, box2.max.z + 0.8);
+        // Spawn camera safely inside the classroom, not outside the walls
+        const safeZ = box2.max.z > 2 ? box2.max.z - 2.5 : 0;
+        camera.position.set(0, 1.65, safeZ);
         
         // Setup initial euler rotation for mobile
         eulerRef.current.set(0, 0, 0, 'YXZ');
