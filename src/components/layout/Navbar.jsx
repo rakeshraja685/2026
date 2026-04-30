@@ -5,7 +5,7 @@ const navLinks = [
   { to: "/gallery", label: "Gallery" },
   { to: "/videos", label: "Videos" },
   { to: "/yearbook", label: "Yearbook" },
-  { to: "/timeline", label: "Timeline" },
+  { to: "/3d-model", label: "3D Model" },
   { to: "/messages", label: "Messages" },
 ];
 
