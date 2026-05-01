@@ -73,21 +73,20 @@ export default function Class3DModel() {
     const mount = mountRef.current;
     if (!mount) return;
 
-    // Detect mobile/touch to skip heavy GPU post-processing
+    // Detect mobile/touch (kept for consistency, though visual downgrades are removed)
     const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
     // ── Renderer ────────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({
-      antialias: !isMobile, // disable antialias on mobile for performance
+      antialias: true,
       powerPreference: 'high-performance'
     });
-    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(mount.clientWidth, mount.clientHeight);
-    renderer.shadowMap.enabled = !isMobile; // shadows too heavy on mobile
+    renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    // Mobile screens need much higher exposure to look bright
-    renderer.toneMappingExposure = isMobile ? 1.8 : 0.7;
+    renderer.toneMappingExposure = 0.7;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     mount.appendChild(renderer.domElement);
     rendererRef.current = renderer;
@@ -103,46 +102,40 @@ export default function Class3DModel() {
     camera.position.set(0, 1.65, 5);
     cameraRef.current = camera;
 
-    // ── Post-processing (Desktop only – too heavy for mobile GPUs) ───────────
-    let composer = null;
-    if (!isMobile) {
-      composer = new EffectComposer(renderer);
-      composer.addPass(new RenderPass(scene, camera));
+    // ── Post-processing ───────────
+    let composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
 
-      const bloom = new UnrealBloomPass(
-        new THREE.Vector2(mount.clientWidth, mount.clientHeight),
-        0.1,   // strength
-        0.3,   // radius
-        0.95   // threshold
-      );
-      composer.addPass(bloom);
+    const bloom = new UnrealBloomPass(
+      new THREE.Vector2(mount.clientWidth, mount.clientHeight),
+      0.1,   // strength
+      0.3,   // radius
+      0.95   // threshold
+    );
+    composer.addPass(bloom);
 
-      const smaa = new SMAAPass(mount.clientWidth * renderer.getPixelRatio(), mount.clientHeight * renderer.getPixelRatio());
-      composer.addPass(smaa);
-      composer.addPass(new OutputPass());
-    }
+    const smaa = new SMAAPass(mount.clientWidth * renderer.getPixelRatio(), mount.clientHeight * renderer.getPixelRatio());
+    composer.addPass(smaa);
+    composer.addPass(new OutputPass());
+    
     composerRef.current = composer;
 
     // ── Lighting ─────────────────────────────────────────────────────────────
-    // On mobile use brighter ambient so the scene is clearly visible
-    const ambientLight = new THREE.AmbientLight(0x334466, isMobile ? 1.5 : 0.15);
+    const ambientLight = new THREE.AmbientLight(0x334466, 0.15);
     scene.add(ambientLight);
 
     // Hemisphere sky / ground
-    const hemi = new THREE.HemisphereLight(0x4466aa, 0x221100, isMobile ? 1.2 : 0.1);
+    const hemi = new THREE.HemisphereLight(0x4466aa, 0x221100, 0.1);
     scene.add(hemi);
 
     // Main classroom overhead fluorescent lights (warm white)
     const makeFluorescent = (x, y, z) => {
-      const intensity = isMobile ? 2.5 : 0.5;
-      const light = new THREE.PointLight(0xfff5e0, intensity, 20, 1.5);
+      const light = new THREE.PointLight(0xfff5e0, 0.5, 20, 1.5);
       light.position.set(x, y, z);
-      if (!isMobile) {
-        light.castShadow = true;
-        light.shadow.mapSize.set(512, 512);
-        light.shadow.camera.near = 0.1;
-        light.shadow.camera.far = 15;
-      }
+      light.castShadow = true;
+      light.shadow.mapSize.set(512, 512);
+      light.shadow.camera.near = 0.1;
+      light.shadow.camera.far = 15;
       scene.add(light);
 
       // glow sphere
@@ -159,34 +152,30 @@ export default function Class3DModel() {
     makeFluorescent( 2.5, 4,  2);
 
     // Warm teacher desk spotlight
-    const spotDesk = new THREE.SpotLight(0xffd080, isMobile ? 4.0 : 1.5, 14, Math.PI / 5, 0.4, 1.5);
+    const spotDesk = new THREE.SpotLight(0xffd080, 1.5, 14, Math.PI / 5, 0.4, 1.5);
     spotDesk.position.set(0, 6, -8);
     spotDesk.target.position.set(0, 1, -6);
-    if (!isMobile) {
-      spotDesk.castShadow = true;
-      spotDesk.shadow.mapSize.set(1024, 1024);
-    }
+    spotDesk.castShadow = true;
+    spotDesk.shadow.mapSize.set(1024, 1024);
     scene.add(spotDesk);
     scene.add(spotDesk.target);
 
     // Window sunlight rim (golden)
-    const sunRim = new THREE.DirectionalLight(0xffcc77, isMobile ? 2.5 : 0.6);
+    const sunRim = new THREE.DirectionalLight(0xffcc77, 0.6);
     sunRim.position.set(-10, 8, 5);
-    if (!isMobile) {
-      sunRim.castShadow = true;
-      sunRim.shadow.mapSize.set(2048, 2048);
-      sunRim.shadow.camera.near = 0.5;
-      sunRim.shadow.camera.far = 60;
-      sunRim.shadow.camera.left = -20;
-      sunRim.shadow.camera.right = 20;
-      sunRim.shadow.camera.top = 20;
-      sunRim.shadow.camera.bottom = -20;
-      sunRim.shadow.bias = -0.001;
-    }
+    sunRim.castShadow = true;
+    sunRim.shadow.mapSize.set(2048, 2048);
+    sunRim.shadow.camera.near = 0.5;
+    sunRim.shadow.camera.far = 60;
+    sunRim.shadow.camera.left = -20;
+    sunRim.shadow.camera.right = 20;
+    sunRim.shadow.camera.top = 20;
+    sunRim.shadow.camera.bottom = -20;
+    sunRim.shadow.bias = -0.001;
     scene.add(sunRim);
 
     // Cool fill from opposite side (window reflection)
-    const fillLight = new THREE.DirectionalLight(0x88aaff, isMobile ? 1.5 : 0.2);
+    const fillLight = new THREE.DirectionalLight(0x88aaff, 0.2);
     fillLight.position.set(10, 5, 5);
     scene.add(fillLight);
 
