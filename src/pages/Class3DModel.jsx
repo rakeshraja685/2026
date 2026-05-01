@@ -78,12 +78,12 @@ export default function Class3DModel() {
 
     // ── Renderer ────────────────────────────────────────────────────────────
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: !isMobile,
       powerPreference: 'high-performance'
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(isMobile ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2));
     renderer.setSize(mount.clientWidth, mount.clientHeight);
-    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.enabled = !isMobile;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.7;
@@ -159,23 +159,27 @@ export default function Class3DModel() {
     const spotDesk = new THREE.SpotLight(0xffd080, 1.5, 14, Math.PI / 5, 0.4, 1.5);
     spotDesk.position.set(0, 6, -8);
     spotDesk.target.position.set(0, 1, -6);
-    spotDesk.castShadow = true;
-    spotDesk.shadow.mapSize.set(1024, 1024);
+    if (!isMobile) {
+      spotDesk.castShadow = true;
+      spotDesk.shadow.mapSize.set(1024, 1024);
+    }
     scene.add(spotDesk);
     scene.add(spotDesk.target);
 
     // Window sunlight rim (golden)
     const sunRim = new THREE.DirectionalLight(0xffcc77, 0.6);
     sunRim.position.set(-10, 8, 5);
-    sunRim.castShadow = true;
-    sunRim.shadow.mapSize.set(2048, 2048);
-    sunRim.shadow.camera.near = 0.5;
-    sunRim.shadow.camera.far = 60;
-    sunRim.shadow.camera.left = -20;
-    sunRim.shadow.camera.right = 20;
-    sunRim.shadow.camera.top = 20;
-    sunRim.shadow.camera.bottom = -20;
-    sunRim.shadow.bias = -0.001;
+    if (!isMobile) {
+      sunRim.castShadow = true;
+      sunRim.shadow.mapSize.set(2048, 2048);
+      sunRim.shadow.camera.near = 0.5;
+      sunRim.shadow.camera.far = 60;
+      sunRim.shadow.camera.left = -20;
+      sunRim.shadow.camera.right = 20;
+      sunRim.shadow.camera.top = 20;
+      sunRim.shadow.camera.bottom = -20;
+      sunRim.shadow.bias = -0.001;
+    }
     scene.add(sunRim);
 
     // Cool fill from opposite side (window reflection)
@@ -223,7 +227,7 @@ export default function Class3DModel() {
         pmremGen.dispose();
 
         // Traverse – upgrade all materials
-        const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
+        const maxAnisotropy = isMobile ? Math.min(2, renderer.capabilities.getMaxAnisotropy()) : renderer.capabilities.getMaxAnisotropy();
         model.traverse((child) => {
           if (child.isMesh) {
             child.castShadow    = true;
@@ -360,17 +364,19 @@ export default function Class3DModel() {
       const rawDelta = clockRef.current.getDelta();
       const delta = Math.min(rawDelta, 0.05);
 
-      // Animate dust motes
-      const t = clockRef.current.elapsedTime;
-      const pos = dust.geometry.attributes.position.array;
-      for (let i = 0; i < dustCount; i++) {
-        pos[i * 3 + 1] += Math.sin(t * 0.5 + i) * 0.0005;
-      }
-      dust.geometry.attributes.position.needsUpdate = true;
-      dust.rotation.y += 0.00015;
-
       // Determine movement environment
       const hasTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+      // Animate dust motes
+      const t = clockRef.current.elapsedTime;
+      if (!hasTouch) {
+        const pos = dust.geometry.attributes.position.array;
+        for (let i = 0; i < dustCount; i++) {
+          pos[i * 3 + 1] += Math.sin(t * 0.5 + i) * 0.0005;
+        }
+        dust.geometry.attributes.position.needsUpdate = true;
+      }
+      dust.rotation.y += 0.00015;
       
       const vel = velocityRef.current;
       const dir = directionRef.current;
