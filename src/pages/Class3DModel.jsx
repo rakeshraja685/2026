@@ -94,7 +94,7 @@ export default function Class3DModel() {
     // ── Scene ────────────────────────────────────────────────────────────────
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x030305);
-    scene.fog = new THREE.FogExp2(0x030305, 0.06); // Denser, darker fog to hide raw edges
+    scene.fog = new THREE.FogExp2(0x030305, 0.12); // Denser fog to hide raw, unstructured edges
     sceneRef.current = scene;
 
     // ── Camera ───────────────────────────────────────────────────────────────
@@ -293,9 +293,9 @@ export default function Class3DModel() {
         model.scale.setScalar(scale);
         model.position.sub(centre.multiplyScalar(scale));
 
-        // Sit on ground
+        // Sit on ground, but sink it slightly to hide the spiky, melted bottom edges
         const box2 = new THREE.Box3().setFromObject(model);
-        model.position.y -= box2.min.y;
+        model.position.y -= (box2.min.y + 0.8);
 
         scene.add(model);
 
