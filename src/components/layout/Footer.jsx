@@ -21,7 +21,7 @@ export default function Footer() {
               <Link to="/gallery" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Gallery</Link>
               <Link to="/videos" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Videos</Link>
               <Link to="/yearbook" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Yearbook</Link>
-              <Link to="/timeline" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Timeline</Link>
+              <Link to="/3d-model" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">3D Model</Link>
               <Link to="/messages" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Messages</Link>
             </div>
           </div>
