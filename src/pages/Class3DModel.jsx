@@ -103,21 +103,23 @@ export default function Class3DModel() {
     cameraRef.current = camera;
 
     // ── Post-processing ───────────
-    let composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
+    let composer = null;
+    if (!isMobile) {
+      composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
 
-    const bloom = new UnrealBloomPass(
-      new THREE.Vector2(mount.clientWidth, mount.clientHeight),
-      0.1,   // strength
-      0.3,   // radius
-      0.95   // threshold
-    );
-    composer.addPass(bloom);
+      const bloom = new UnrealBloomPass(
+        new THREE.Vector2(mount.clientWidth, mount.clientHeight),
+        0.1,   // strength
+        0.3,   // radius
+        0.95   // threshold
+      );
+      composer.addPass(bloom);
 
-    const smaa = new SMAAPass(mount.clientWidth * renderer.getPixelRatio(), mount.clientHeight * renderer.getPixelRatio());
-    composer.addPass(smaa);
-    composer.addPass(new OutputPass());
-    
+      const smaa = new SMAAPass(mount.clientWidth * renderer.getPixelRatio(), mount.clientHeight * renderer.getPixelRatio());
+      composer.addPass(smaa);
+      composer.addPass(new OutputPass());
+    }
     composerRef.current = composer;
 
     // ── Lighting ─────────────────────────────────────────────────────────────
@@ -132,10 +134,12 @@ export default function Class3DModel() {
     const makeFluorescent = (x, y, z) => {
       const light = new THREE.PointLight(0xfff5e0, 0.5, 20, 1.5);
       light.position.set(x, y, z);
-      light.castShadow = true;
-      light.shadow.mapSize.set(512, 512);
-      light.shadow.camera.near = 0.1;
-      light.shadow.camera.far = 15;
+      if (!isMobile) {
+        light.castShadow = true;
+        light.shadow.mapSize.set(512, 512);
+        light.shadow.camera.near = 0.1;
+        light.shadow.camera.far = 15;
+      }
       scene.add(light);
 
       // glow sphere
