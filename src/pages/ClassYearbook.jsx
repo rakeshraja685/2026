@@ -82,7 +82,7 @@ export default function ClassYearbook() {
           <div key={person.id} className="group bg-surface-container-low rounded-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/60">
             <div className="aspect-[4/5] overflow-hidden relative">
               <img
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110"
                 src={person.photo}
                 alt={person.name}
                 loading="lazy"
