@@ -12,7 +12,7 @@ export const people = [
   {
     id: 2,
     name: "MST.JAYANTH.V",
-    nickname: "master of hand",
+    nickname: "Cyclist of Thiruvottiyur",
     photo: "/images/people/MST.JAYANTH.V.jpg",
     superlative: "Most Likely to Succeed",
     quote: "Making memories everywhere.",
