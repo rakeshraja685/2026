@@ -2,6 +2,17 @@ import { Link } from "react-router-dom";
 import AnimatedCounter from "../components/AnimatedCounter";
 import { useEffect, useRef, useState } from "react";
 
+const sectionSlides = [
+  "/images/sliding images/WhatsApp Image 2026-04-10 at 1.05.48 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-04-10 at 1.05.50 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-04-10 at 1.05.56 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.00 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.01 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.02 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.03 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.04 PM.jpeg",
+];
+
 const heroSlides = [
   "/images/sliding images/WhatsApp Image 2026-04-10 at 1.05.48 PM.jpeg",
   "/images/sliding images/WhatsApp Image 2026-04-10 at 1.05.50 PM.jpeg",
@@ -47,12 +58,20 @@ const heroSlides = [
 export default function LandingPage() {
   const sectionsRef = useRef([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [sectionSlide, setSectionSlide] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 4000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const sectionTimer = setInterval(() => {
+      setSectionSlide((prev) => (prev + 1) % sectionSlides.length);
+    }, 3000);
+    return () => clearInterval(sectionTimer);
   }, []);
 
   useEffect(() => {
@@ -147,11 +166,31 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="relative group">
             <div className="absolute -inset-4 border border-outline-variant/15 rounded-xl group-hover:border-primary/20 transition-colors duration-500" />
-            <img
-              alt="Cake Cutting Celebration"
-              className="relative rounded-lg hover:scale-[1.02] transition-all duration-700 w-full aspect-[4/5] object-cover object-top shadow-2xl"
-              src="/images/sliding images/WhatsApp Image 2026-04-10 at 1.05.48 PM.jpeg"
-            />
+            {/* Slideshow */}
+            <div className="relative rounded-lg overflow-hidden w-full aspect-[4/5] shadow-2xl">
+              {sectionSlides.map((src, i) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`Slide ${i + 1}`}
+                  className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
+                    i === sectionSlide ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
+              {/* Dot indicators */}
+              <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
+                {sectionSlides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSectionSlide(i)}
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                      i === sectionSlide ? "bg-primary w-4" : "bg-white/40"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
           <div>
             <h2 className="font-serif italic text-4xl md:text-5xl text-primary mb-8">
