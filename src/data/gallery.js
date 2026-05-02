@@ -244,4 +244,8 @@ export const galleryVideos = [
   { id: "v6", src: "https://drive.google.com/file/d/1S6aDbkjso47URAqVwq5WhlTgQ23CAb_Z/preview", title: "Campus Walk", date: "April 13, 2026" },
   { id: "v7", src: "https://drive.google.com/file/d/1x3z1hCnpcdxVLWNfG-MNCkFY0rf7-xKT/preview", title: "Farewell Night", date: "April 13, 2026" },
   { id: "v8", src: "https://drive.google.com/file/d/11a2E_WrF8yOuGvCl26ICuip6AjTJndB3/preview", title: "Big Farewell Moment", date: "April 2026" },
+  { id: "v9", src: "https://drive.google.com/file/d/1Xy5F2hMhV5Mwwxuch_Q6oZOQZ6OaVTAT/preview", title: "Farewell Memories", date: "April 2026" },
+  { id: "v10", src: "https://drive.google.com/file/d/18NDslKtg2zmrrMpKVhGe7ZY7lCcS3q3L/preview", title: "Class Moments", date: "April 2026" },
+  { id: "v11", src: "https://drive.google.com/file/d/1OVqGUSpe3fJGUNPcMkln_wnscAmX45Ua/preview", title: "Together Forever", date: "April 2026" },
+  { id: "v12", src: "https://drive.google.com/file/d/1i_k0XnFLJIffoBmjZgwDtW-AB4TrkxaL/preview", title: "Last Day Vibes", date: "April 2026" },
 ];
