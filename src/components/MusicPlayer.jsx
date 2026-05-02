@@ -1,21 +1,21 @@
 import { useState, useRef, useEffect } from "react";
 
-// Free-to-use ambient/nostalgic tracks from Pixabay CDN
+// Free-to-use tracks from Bensound (bensound.com) — verified working URLs
 const tracks = [
   {
-    title: "Golden Memories",
-    artist: "Ambient Dreams",
-    src: "https://cdn.pixabay.com/audio/2022/10/16/audio_12a5a71869.mp3",
+    title: "Memories",
+    artist: "Bensound",
+    src: "https://www.bensound.com/bensound-music/bensound-memories.mp3",
   },
   {
-    title: "Nostalgic Piano",
-    artist: "Peaceful Moments",
-    src: "https://cdn.pixabay.com/audio/2023/06/05/audio_9461de3e7b.mp3",
+    title: "Acoustic Breeze",
+    artist: "Bensound",
+    src: "https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3",
   },
   {
-    title: "Farewell Strings",
-    artist: "Legacy Ensemble",
-    src: "https://cdn.pixabay.com/audio/2022/10/16/audio_aae4a08d26.mp3",
+    title: "Once Again",
+    artist: "Bensound",
+    src: "https://www.bensound.com/bensound-music/bensound-onceagain.mp3",
   },
 ];
 
@@ -99,13 +99,14 @@ export default function MusicPlayer() {
       {/* Hidden Audio Element */}
       <audio
         ref={audioRef}
+        src={tracks[currentTrack].src}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
         onLoadedMetadata={handleTimeUpdate}
+        onError={() => console.warn("Audio failed to load:", tracks[currentTrack].src)}
         preload="metadata"
-      >
-        <source src={tracks[currentTrack].src} type="audio/mpeg" />
-      </audio>
+        crossOrigin="anonymous"
+      />
 
       <div className="fixed bottom-6 right-6 z-[80]">
         {/* Expanded Player */}
