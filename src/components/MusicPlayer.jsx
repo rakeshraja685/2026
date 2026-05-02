@@ -22,8 +22,49 @@ export default function MusicPlayer() {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 
   const audioRef = useRef(null);
+  const startedRef = useRef(false);
+
+  // Attempt autoplay on mount
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.volume = volume;
+    audioRef.current.play()
+      .then(() => {
+        setIsPlaying(true);
+        setAutoplayBlocked(false);
+      })
+      .catch(() => {
+        // Browser blocked autoplay — wait for first user interaction
+        setAutoplayBlocked(true);
+      });
+  }, []);
+
+  // On first user interaction anywhere on the page, start music
+  useEffect(() => {
+    if (!autoplayBlocked) return;
+    const startOnInteraction = () => {
+      if (startedRef.current) return;
+      if (!audioRef.current) return;
+      audioRef.current.play()
+        .then(() => {
+          setIsPlaying(true);
+          setAutoplayBlocked(false);
+          startedRef.current = true;
+        })
+        .catch(() => {});
+    };
+    window.addEventListener("click", startOnInteraction, { once: true });
+    window.addEventListener("touchstart", startOnInteraction, { once: true });
+    window.addEventListener("keydown", startOnInteraction, { once: true });
+    return () => {
+      window.removeEventListener("click", startOnInteraction);
+      window.removeEventListener("touchstart", startOnInteraction);
+      window.removeEventListener("keydown", startOnInteraction);
+    };
+  }, [autoplayBlocked]);
 
   // Sync volume whenever it changes
   useEffect(() => {
@@ -298,7 +339,7 @@ export default function MusicPlayer() {
         {/* Floating Pill Button */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-3 rounded-full px-5 py-3 border-none cursor-pointer transition-all duration-300 group"
+          className="flex items-center gap-3 rounded-full px-5 py-3 border-none cursor-pointer transition-all duration-300 group relative"
           style={{
             background: "rgba(22,22,22,0.92)",
             backdropFilter: "blur(20px)",
@@ -310,6 +351,13 @@ export default function MusicPlayer() {
               : "0 2px 16px rgba(0,0,0,0.6)",
           }}
         >
+          {/* Pulsing ring hint when autoplay is blocked */}
+          {autoplayBlocked && (
+            <span
+              className="absolute inset-0 rounded-full"
+              style={{ animation: "ringPulse 1.8s ease-out infinite", border: "2px solid rgba(242,202,80,0.6)" }}
+            />
+          )}
           <span
             className="material-symbols-outlined text-xl"
             style={{
@@ -324,7 +372,7 @@ export default function MusicPlayer() {
               className="text-xs hidden sm:inline transition-colors"
               style={{ color: "rgba(255,255,255,0.6)", fontFamily: "sans-serif" }}
             >
-              {tracks[currentTrack].title}
+              {autoplayBlocked ? "Tap anywhere to play 🎵" : tracks[currentTrack].title}
             </span>
           )}
         </button>
@@ -342,6 +390,11 @@ export default function MusicPlayer() {
         @keyframes spin {
           from { transform: rotate(0deg); }
           to   { transform: rotate(360deg); }
+        }
+        @keyframes ringPulse {
+          0%   { transform: scale(1);    opacity: 0.8; }
+          70%  { transform: scale(1.18); opacity: 0; }
+          100% { transform: scale(1.18); opacity: 0; }
         }
       `}</style>
     </>
