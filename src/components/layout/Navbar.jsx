@@ -20,7 +20,7 @@ export default function Navbar() {
       <nav className="fixed top-0 w-full z-50 bg-stone-950/70 backdrop-blur-xl shadow-2xl shadow-black/40">
         <div className="flex justify-between items-center px-6 md:px-12 py-5 max-w-screen-2xl mx-auto">
           <Link to="/" className="font-serif italic text-2xl text-yellow-500">
-            The Midnight Gala
+            Farewell 2026
           </Link>
 
           {/* Desktop Links */}

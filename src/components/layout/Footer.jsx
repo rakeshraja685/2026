@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <div className="font-serif italic text-xl text-yellow-500 mb-4">The Midnight Gala</div>
+            <div className="font-serif italic text-xl text-yellow-500 mb-4">Farewell 2026</div>
             <p className="font-sans text-stone-500 text-xs leading-relaxed max-w-xs">
               A digital commemorative for the Class of 2023 to 2026. Preserving memories, celebrating bonds, and honoring the Aurelian Legacy.
             </p>
@@ -34,7 +34,7 @@ export default function Footer() {
                 onClick={() => {
                   if (navigator.share) {
                     navigator.share({
-                      title: 'The Midnight Gala',
+                      title: 'Farewell 2026',
                       text: 'Check out our Class of 2026 Farewell Website!',
                       url: window.location.href,
                     }).catch(console.error);
@@ -66,7 +66,7 @@ export default function Footer() {
 
         <div className="border-t border-stone-800/30 pt-8 text-center">
           <div className="font-sans text-stone-500 text-[10px] tracking-widest uppercase">
-            © Class of 2023 to 2026 • The Midnight Gala • Forging Futures
+            © Class of 2023 to 2026 • Farewell 2026 • Forging Futures
           </div>
         </div>
       </div>

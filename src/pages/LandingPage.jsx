@@ -97,7 +97,7 @@ export default function LandingPage() {
               <span className="font-sans text-primary uppercase tracking-[0.3em] text-xs font-bold">Aurelian Legacy • Class of 2023 to 2026</span>
             </div>
             <h1 className="font-serif italic text-5xl md:text-7xl lg:text-9xl text-on-surface leading-tight -ml-1 md:-ml-2 tracking-tighter">
-              The Midnight Gala: <br />
+              Farewell 2026: <br />
               Our Final Chapter
             </h1>
           </div>
