@@ -11,7 +11,37 @@ const heroSlides = [
   "/images/sliding images/WhatsApp Image 2026-04-10 at 3.15.41 PM.jpeg",
   "/images/sliding images/WhatsApp Image 2026-04-10 at 3.16.19 PM.jpeg",
   "/images/sliding images/WhatsApp Image 2026-04-10 at 3.16.25 PM.jpeg",
-  "/images/sliding images/WhatsApp Image 2026-04-10 at 3.16.27 PM.jpeg"
+  "/images/sliding images/WhatsApp Image 2026-04-10 at 3.16.27 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.57 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.57 PM (1).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.58 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.58 PM (1).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.58 PM (2).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.59 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.59 PM (1).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.59 PM (2).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.26.59 PM (3).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.00 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.00 PM (1).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.00 PM (2).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.00 PM (3).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.01 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.01 PM (1).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.01 PM (2).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.01 PM (3).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.02 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.02 PM (1).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.02 PM (2).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.02 PM (3).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.03 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.03 PM (1).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.03 PM (2).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.03 PM (3).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.04 PM.jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.04 PM (1).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.04 PM (2).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.04 PM (3).jpeg",
+  "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.04 PM (4).jpeg",
 ];
 
 export default function LandingPage() {
@@ -150,7 +180,7 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <AnimatedCounter end={1095} label="Days Together" icon="calendar_today" />
           <AnimatedCounter end={11} label="Videos" icon="movie" />
-          <AnimatedCounter end={212} label="Photos Taken" icon="photo_camera" />
+          <AnimatedCounter end={242} label="Photos Taken" icon="photo_camera" />
           <AnimatedCounter end="∞" label="Inside Jokes" icon="sentiment_very_satisfied" />
         </div>
       </section>
