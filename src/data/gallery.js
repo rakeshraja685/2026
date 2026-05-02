@@ -287,6 +287,26 @@ export const galleryPhotos = [
   { id: 264, src: "/images/all images/WhatsApp Image 2026-05-02 at 9.48.42 PM (1).jpeg", title: "Good Times", category: "Group", photographer: "Class of 2026" },
   { id: 265, src: "/images/all images/WhatsApp Image 2026-05-02 at 9.48.42 PM (2).jpeg", title: "Smiles", category: "Candid", photographer: "Class of 2026" },
   { id: 266, src: "/images/all images/WhatsApp Image 2026-05-02 at 9.48.43 PM (1).jpeg", title: "May 2 Memory", category: "Group", photographer: "Class of 2026" },
+
+  // May 2, 2026 — Night batch (Unique first, Variants last)
+  { id: 267, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.44 PM.jpeg", title: "Night Vibes", category: "Candid", photographer: "Class of 2026" },
+  { id: 268, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.45 PM.jpeg", title: "Together Tonight", category: "Group", photographer: "Class of 2026" },
+  { id: 269, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.46 PM.jpeg", title: "Last Laughs", category: "Candid", photographer: "Class of 2026" },
+  { id: 270, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.47 PM.jpeg", title: "Final Night", category: "Group", photographer: "Class of 2026" },
+  { id: 271, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.48 PM.jpeg", title: "Golden Moments", category: "Candid", photographer: "Class of 2026" },
+  { id: 272, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.49 PM.jpeg", title: "Night Crew", category: "Group", photographer: "Class of 2026" },
+  { id: 273, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.50 PM.jpeg", title: "End of the Night", category: "Candid", photographer: "Class of 2026" },
+  { id: 274, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.45 PM (1).jpeg", title: "Squad Goals", category: "Group", photographer: "Class of 2026" },
+  { id: 275, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.45 PM (2).jpeg", title: "Candid Night", category: "Candid", photographer: "Class of 2026" },
+  { id: 276, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.46 PM (1).jpeg", title: "Good Times", category: "Group", photographer: "Class of 2026" },
+  { id: 277, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.46 PM (2).jpeg", title: "Memories", category: "Candid", photographer: "Class of 2026" },
+  { id: 278, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.47 PM (1).jpeg", title: "Smiles All Around", category: "Group", photographer: "Class of 2026" },
+  { id: 279, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.47 PM (2).jpeg", title: "Heart Full", category: "Candid", photographer: "Class of 2026" },
+  { id: 280, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.48 PM (1).jpeg", title: "One More Snap", category: "Group", photographer: "Class of 2026" },
+  { id: 281, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.48 PM (2).jpeg", title: "Cherished", category: "Candid", photographer: "Class of 2026" },
+  { id: 282, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.49 PM (1).jpeg", title: "See You Soon", category: "Group", photographer: "Class of 2026" },
+  { id: 283, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.49 PM (2).jpeg", title: "Always Friends", category: "Candid", photographer: "Class of 2026" },
+  { id: 284, src: "/images/all images/WhatsApp Image 2026-05-02 at 10.51.49 PM (3).jpeg", title: "Forever 2026", category: "Group", photographer: "Class of 2026" },
 ];
 
 export const galleryCategories = ["All", "Group"];
