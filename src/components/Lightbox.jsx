@@ -1,6 +1,9 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 
 export default function Lightbox({ images, currentIndex, onClose, onNext, onPrev }) {
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === "Escape") onClose();
@@ -19,12 +22,32 @@ export default function Lightbox({ images, currentIndex, onClose, onNext, onPrev
     };
   }, [handleKeyDown]);
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    // Only trigger swipe if horizontal movement is dominant
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) onNext();
+      else onPrev();
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   const current = images[currentIndex];
 
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm animate-fadeIn"
       onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Close button */}
       <button
@@ -71,6 +94,10 @@ export default function Lightbox({ images, currentIndex, onClose, onNext, onPrev
           )}
           <p className="font-sans text-xs text-stone-600 mt-2">
             {currentIndex + 1} / {images.length}
+          </p>
+          {/* Swipe hint on mobile */}
+          <p className="font-sans text-[10px] text-stone-700 mt-1 md:hidden uppercase tracking-widest">
+            ← swipe to navigate →
           </p>
         </div>
       </div>

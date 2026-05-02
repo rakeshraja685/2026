@@ -61,10 +61,10 @@ export default function FarewellMessages() {
             </p>
           </div>
           <div className="lg:col-span-5 hidden lg:block">
-            <div className="aspect-[4/3] bg-surface-container overflow-hidden rounded-lg">
-              <img className="w-full h-full object-cover opacity-60 mix-blend-luminosity hover:opacity-100 transition-opacity duration-700"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBReGdq3nq6uCxQ4QBrrjRRkVW8wrfhc5g4e-Q0grg8XpQ8wsN6o8UDl7qkVgKuC28ZO2FfM3UnX7AdSCS4w8vteeVPNWakS8Q8_4ZCIEyLdPfMkBUPGbOEhtKjhdbXUFcJG_Sq8UOxTwbq9rUbvvQdrC0UIfe1eJrmnoKYsdyqYcQGPJtRRIERr-sXurqF-NhI001JFFyjJNI5rfZtsNGFqpZaCpasJuKgsXYjvZQRfeI7A5NYFq6glira98U1DfexT62uwMlBEVQ"
-                alt="Fountain pen and parchment" />
+            <div className="aspect-[4/3] bg-surface-container overflow-hidden rounded-2xl border border-outline-variant/20 shadow-2xl shadow-black/40">
+              <img className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700"
+                src="/images/sliding images/WhatsApp Image 2026-04-10 at 3.16.19 PM.jpeg"
+                alt="Farewell memories" />
             </div>
           </div>
         </div>

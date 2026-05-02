@@ -1,5 +1,128 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { people, categories } from "../data/people";
+
+function shareCard(person) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 600;
+  canvas.height = 750;
+  const ctx = canvas.getContext("2d");
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, 600, 750);
+  grad.addColorStop(0, "#1c1917");
+  grad.addColorStop(1, "#292524");
+  ctx.fillStyle = grad;
+  ctx.roundRect(0, 0, 600, 750, 16);
+  ctx.fill();
+
+  // Gold accent line
+  ctx.strokeStyle = "#d4a847";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(40, 40);
+  ctx.lineTo(560, 40);
+  ctx.stroke();
+
+  // Load and draw the person's photo
+  const img = new Image();
+  img.crossOrigin = "anonymous";
+  img.onload = () => {
+    // Draw photo (centered, clipped to circle)
+    const photoX = 200, photoY = 70, photoSize = 200;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.drawImage(img, photoX, photoY, photoSize, photoSize);
+    ctx.restore();
+
+    // Circle border
+    ctx.strokeStyle = "#d4a847";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Name
+    ctx.fillStyle = "#fafaf9";
+    ctx.font = "bold 30px Georgia";
+    ctx.textAlign = "center";
+    ctx.fillText(person.name, 300, 310);
+
+    // Nickname
+    ctx.fillStyle = "#d4a847";
+    ctx.font = "italic 18px Georgia";
+    ctx.fillText(`"${person.nickname}"`, 300, 345);
+
+    // Superlative
+    ctx.fillStyle = "#a8a29e";
+    ctx.font = "13px Arial";
+    ctx.fillText(person.superlative.toUpperCase(), 300, 380);
+
+    // Divider
+    ctx.strokeStyle = "#d4a847";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(80, 405);
+    ctx.lineTo(520, 405);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Quote (word wrap)
+    ctx.fillStyle = "#d6d3d1";
+    ctx.font = "italic 16px Georgia";
+    ctx.textAlign = "center";
+    const quote = `"${person.quote}"`;
+    const words = quote.split(" ");
+    let line = "", y = 440;
+    for (const word of words) {
+      const test = line + word + " ";
+      if (ctx.measureText(test).width > 480 && line) {
+        ctx.fillText(line.trim(), 300, y);
+        line = word + " ";
+        y += 28;
+      } else { line = test; }
+    }
+    ctx.fillText(line.trim(), 300, y);
+
+    // Footer
+    ctx.fillStyle = "#d4a847";
+    ctx.font = "bold 12px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("FAREWELL 2026 • CLASS OF 2023–2026 • AURELIAN LEGACY", 300, 715);
+
+    // Gold accent line bottom
+    ctx.strokeStyle = "#d4a847";
+    ctx.lineWidth = 2;
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(40, 710);
+    ctx.lineTo(560, 710);
+    ctx.stroke();
+
+    // Download
+    const link = document.createElement("a");
+    link.download = `${person.name.replace(/\s/g, "_")}_farewell_card.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+  img.onerror = () => {
+    // If image fails (CORS), just download without photo
+    ctx.fillStyle = "#d4a847";
+    ctx.font = "bold 28px Georgia";
+    ctx.textAlign = "center";
+    ctx.fillText(person.name, 300, 310);
+    ctx.fillStyle = "#a8a29e";
+    ctx.font = "italic 18px Georgia";
+    ctx.fillText(`"${person.nickname}"`, 300, 345);
+    const link = document.createElement("a");
+    link.download = `${person.name.replace(/\s/g, "_")}_farewell_card.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+  img.src = person.photo;
+}
 
 export default function ClassYearbook() {
   const [activeCategory, setActiveCategory] = useState("All Scholars");
@@ -66,8 +189,6 @@ export default function ClassYearbook() {
         </div>
       </header>
 
-
-
       {/* Results count */}
       <div className="mb-10">
         <span className="inline-flex items-center gap-2 bg-surface-container-high text-primary px-6 py-2.5 rounded-full text-xs font-bold font-sans uppercase tracking-widest shadow-sm border border-outline-variant/30">
@@ -102,12 +223,20 @@ export default function ClassYearbook() {
                 "{person.quote}"
               </p>
               {/* Fun Fact */}
-              <div className="pt-4 border-t border-outline-variant/10">
+              <div className="pt-4 border-t border-outline-variant/10 mb-4">
                 <div className="flex items-start gap-2">
                   <span className="material-symbols-outlined text-primary/50 text-sm mt-0.5">auto_awesome</span>
                   <p className="font-sans text-[11px] text-on-surface-variant leading-relaxed">{person.funFact}</p>
                 </div>
               </div>
+              {/* Share My Card Button */}
+              <button
+                onClick={() => shareCard(person)}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface-variant text-xs font-sans uppercase tracking-widest transition-all duration-300 border border-outline-variant/20 hover:border-primary cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-sm">share</span>
+                Share My Card
+              </button>
             </div>
           </div>
         ))}

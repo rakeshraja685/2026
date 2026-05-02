@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import AnimatedCounter from "../components/AnimatedCounter";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { galleryPhotos } from "../data/gallery";
 
 const sectionSlides = [
   "/images/sliding images/WhatsApp Image 2026-04-10 at 1.05.48 PM.jpeg",
@@ -55,10 +56,25 @@ const heroSlides = [
   "/images/sliding images/WhatsApp Image 2026-05-02 at 12.27.04 PM (4).jpeg",
 ];
 
+// Pick a random photo from the gallery (stable per session)
+function getRandomPhoto() {
+  return galleryPhotos[Math.floor(Math.random() * galleryPhotos.length)];
+}
+
+// Days since farewell — April 10, 2026
+function getDaysSinceFarewell() {
+  const farewell = new Date("2026-04-10T00:00:00");
+  const now = new Date();
+  const diff = Math.floor((now - farewell) / (1000 * 60 * 60 * 24));
+  return diff > 0 ? diff : 0;
+}
+
 export default function LandingPage() {
   const sectionsRef = useRef([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sectionSlide, setSectionSlide] = useState(0);
+  const [daysSince, setDaysSince] = useState(getDaysSinceFarewell());
+  const randomPhoto = useMemo(() => getRandomPhoto(), []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -72,6 +88,12 @@ export default function LandingPage() {
       setSectionSlide((prev) => (prev + 1) % sectionSlides.length);
     }, 3000);
     return () => clearInterval(sectionTimer);
+  }, []);
+
+  // Update days since farewell every minute
+  useEffect(() => {
+    const tick = setInterval(() => setDaysSince(getDaysSinceFarewell()), 60000);
+    return () => clearInterval(tick);
   }, []);
 
   useEffect(() => {
@@ -210,11 +232,58 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* On This Day — Random Photo */}
+      <section ref={addRef} className="fade-in-section py-24 px-6 md:px-12 bg-surface">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="font-sans text-[10px] text-primary uppercase tracking-[0.4em] block mb-2">A Memory, Just For You</span>
+            <h2 className="font-serif italic text-3xl md:text-4xl text-on-surface">On This Visit...</h2>
+          </div>
+          <div className="flex flex-col md:flex-row gap-8 items-center bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/20 shadow-xl shadow-black/30">
+            <div className="w-full md:w-1/2 aspect-[4/3] overflow-hidden">
+              <img
+                src={randomPhoto.src}
+                alt={randomPhoto.title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+            </div>
+            <div className="p-8 md:p-12 flex-1 text-center md:text-left">
+              <span className="material-symbols-outlined text-primary text-4xl mb-4 block">photo_album</span>
+              <h3 className="font-serif italic text-2xl md:text-3xl text-on-surface mb-3">{randomPhoto.title}</h3>
+              <p className="font-sans text-xs text-on-surface-variant uppercase tracking-widest mb-6">
+                {randomPhoto.category} • {randomPhoto.photographer}
+              </p>
+              <p className="font-body text-on-surface-variant leading-relaxed mb-8">
+                Every visit shows you a different memory from our gallery. This one was waiting just for you.
+              </p>
+              <Link
+                to="/gallery"
+                className="inline-flex items-center gap-2 text-primary font-sans text-xs uppercase tracking-widest hover:gap-4 transition-all"
+              >
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                See all 266 photos
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Countdown / Stats */}
       <section ref={addRef} className="fade-in-section py-32 px-6 md:px-12 bg-surface-container-low">
         <div className="max-w-5xl mx-auto text-center mb-16">
           <h2 className="font-serif italic text-4xl md:text-5xl text-on-surface mb-4">By the Numbers</h2>
           <p className="font-body text-on-surface-variant text-lg">The statistics of four unforgettable years.</p>
+        </div>
+        {/* Days Since Farewell — Live Counter */}
+        <div className="max-w-xl mx-auto mb-16 text-center bg-surface-container rounded-2xl px-10 py-8 border border-primary/20 shadow-lg shadow-black/20">
+          <span className="material-symbols-outlined text-primary text-4xl mb-2 block">hourglass_top</span>
+          <p className="font-sans text-xs text-primary uppercase tracking-[0.3em] mb-2">Since Our Farewell</p>
+          <div className="font-serif italic text-7xl md:text-8xl text-on-surface tabular-nums">{daysSince}</div>
+          <p className="font-sans text-sm text-on-surface-variant uppercase tracking-widest mt-2">
+            {daysSince === 1 ? "day" : "days"} and counting
+          </p>
+          <p className="font-sans text-[10px] text-stone-600 uppercase tracking-widest mt-4">April 10, 2026 → Today</p>
         </div>
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <AnimatedCounter end={1095} label="Days Together" icon="calendar_today" />
