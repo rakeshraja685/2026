@@ -240,7 +240,6 @@ export const galleryVideos = [
   { id: "v2", src: "https://drive.google.com/file/d/18yeHow0orV0fnGm5BpljV_i_wARLA0-g/preview", title: "Quick Moments", date: "April 10, 2026" },
   { id: "v3", src: "https://drive.google.com/file/d/1GImeUDLedZNrw904Dhgem9aqr-xr2fKy/preview", title: "Group Fun", date: "April 10, 2026" },
   { id: "v4", src: "https://drive.google.com/file/d/1iUzjmhbU9iyRTKfDWv90gxtOhbKhYE0N/preview", title: "Dance Time", date: "April 10, 2026" },
-  { id: "v5", src: "https://drive.google.com/file/d/1PqEcH8pzInl-Gtk1hLAUUkbR1-jBtNIr/preview", title: "Candid Video", date: "April 10, 2026" },
   { id: "v6", src: "https://drive.google.com/file/d/1S6aDbkjso47URAqVwq5WhlTgQ23CAb_Z/preview", title: "Campus Walk", date: "April 13, 2026" },
   { id: "v7", src: "https://drive.google.com/file/d/1x3z1hCnpcdxVLWNfG-MNCkFY0rf7-xKT/preview", title: "Farewell Night", date: "April 13, 2026" },
   { id: "v8", src: "https://drive.google.com/file/d/11a2E_WrF8yOuGvCl26ICuip6AjTJndB3/preview", title: "Big Farewell Moment", date: "April 2026" },
