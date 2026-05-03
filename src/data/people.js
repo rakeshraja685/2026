@@ -8,6 +8,13 @@ export const people = [
     quote: "I built this website to preserve our beautiful memories. Keep moving forward, Class of 2026! It's not a goodbye, just a 'see you later'.",
     funFact: "Created this entire class website from scratch to ensure our legacy lives on.",
     category: "Innovators",
+    easterEgg: true,
+    easterEggPhotos: [
+      "/images/people/rakesh_egg_1.jpg",
+      "/images/people/rakesh_egg_2.jpg",
+      "/images/people/rakesh_egg_3.jpg",
+      "/images/people/rakesh_egg_4.jpg",
+    ],
   },
   {
     id: 2,
@@ -38,7 +45,27 @@ export const people = [
     quote: "Still waters run deep.",
     funFact: "Has a hidden talent we are yet to discover.",
     category: "Innovators",
-  }
+  },
+  {
+    id: 5,
+    name: "Jagadeeshwaran",
+    nickname: "Jagadeesh",
+    photo: "/images/people/Jagadeeshwaran.jpg",
+    superlative: "Most Likely to Light Up the Room",
+    quote: "The best is yet to come.",
+    funFact: "Known for bringing positive energy wherever he goes.",
+    category: "Legacy Leaders",
+  },
+  {
+    id: 6,
+    name: "Karthick",
+    nickname: "Karthick",
+    photo: "/images/people/Karthick.jpg",
+    superlative: "Most Dependable Friend",
+    quote: "True friendship is never forgotten.",
+    funFact: "The one everyone could always count on, no matter what.",
+    category: "Arts & Culture",
+  },
 ];
 
 export const categories = ["All Scholars", "Arts & Culture", "Innovators", "Legacy Leaders"];

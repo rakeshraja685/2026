@@ -9,7 +9,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 
-export default function Class3DModel() {
+export default function Classroom() {
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
@@ -586,7 +586,7 @@ export default function Class3DModel() {
             </span>
           </div>
           <div className="text-center space-y-2">
-            <p className="text-yellow-400 font-serif italic text-3xl tracking-wide">Class 3D Explorer</p>
+            <p className="text-yellow-400 font-serif italic text-3xl tracking-wide">Classroom Explorer</p>
             <p className="text-stone-400 text-sm tracking-widest uppercase">Loading classroom…</p>
           </div>
           {/* bar */}

@@ -1,73 +1,100 @@
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-stone-950 w-full py-16 px-6 md:px-12 border-t border-stone-800/20">
-      <div className="max-w-screen-2xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
-          <div>
-            <div className="font-serif italic text-xl text-yellow-500 mb-4">Farewell 2026</div>
-            <p className="font-sans text-stone-500 text-xs leading-relaxed max-w-xs">
-              A digital commemorative for the Class of 2023 to 2026. Preserving memories, celebrating bonds, and honoring the Aurelian Legacy.
-            </p>
-          </div>
+    <footer className="relative bg-stone-950 w-full overflow-hidden">
+      {/* Top gold divider */}
+      <div className="section-divider" />
 
-          {/* Navigation */}
-          <div>
-            <h4 className="font-sans text-[10px] uppercase tracking-widest text-stone-400 mb-4">Explore</h4>
-            <div className="flex flex-col gap-3">
-              <Link to="/" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Home</Link>
-              <Link to="/gallery" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Gallery</Link>
-              <Link to="/videos" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Videos</Link>
-              <Link to="/yearbook" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Yearbook</Link>
-              <Link to="/3d-model" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">3D Model</Link>
-              <Link to="/messages" className="font-sans text-stone-500 text-xs hover:text-yellow-500 transition-colors">Messages</Link>
+      {/* Ambient glow orbs */}
+      <div className="glow-orb w-96 h-96 -top-24 left-1/4 opacity-5" />
+      <div className="glow-orb w-64 h-64 bottom-0 right-1/4 opacity-4" />
+
+      <div className="relative z-10 max-w-screen-2xl mx-auto px-6 md:px-12 pt-20 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+          {/* Brand Column */}
+          <div className="md:col-span-5">
+            <div className="font-serif italic text-2xl text-gradient-gold mb-5 leading-none">
+              Farewell 2026
             </div>
-          </div>
-
-          {/* Share */}
-          <div>
-            <h4 className="font-sans text-[10px] uppercase tracking-widest text-stone-400 mb-4">Share the Memories</h4>
+            <p className="font-sans text-stone-500 text-xs leading-relaxed max-w-sm mb-8">
+              A digital commemorative for the Class of 2023–2026. Preserving memories, celebrating bonds, and honoring the Aurelian Legacy beyond these walls.
+            </p>
+            {/* Social / share actions */}
             <div className="flex gap-3">
-              <button 
+              <button
                 onClick={() => {
                   if (navigator.share) {
                     navigator.share({
-                      title: 'Farewell 2026',
-                      text: 'Check out our Class of 2026 Farewell Website!',
+                      title: "Farewell 2026",
+                      text: "Check out our Class of 2026 Farewell Website!",
                       url: window.location.href,
                     }).catch(console.error);
                   } else {
                     navigator.clipboard.writeText(window.location.href);
-                    alert("Link copied to clipboard!");
                   }
                 }}
-                className="w-10 h-10 border-none outline-none cursor-pointer rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all shadow-sm"
+                className="w-10 h-10 border border-outline-variant/20 bg-transparent cursor-pointer rounded-full flex items-center justify-center text-stone-500 hover:border-primary/40 hover:text-primary transition-all duration-300"
                 title="Share Website"
               >
-                <span className="material-symbols-outlined text-lg">share</span>
+                <span className="material-symbols-outlined text-base">share</span>
               </button>
-              
-              <button 
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href)
-                    .then(() => alert("Link copied to clipboard!"))
-                    .catch(console.error);
-                }}
-                className="w-10 h-10 border-none outline-none cursor-pointer rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all shadow-sm"
+              <button
+                onClick={() => navigator.clipboard.writeText(window.location.href)}
+                className="w-10 h-10 border border-outline-variant/20 bg-transparent cursor-pointer rounded-full flex items-center justify-center text-stone-500 hover:border-primary/40 hover:text-primary transition-all duration-300"
                 title="Copy Link"
               >
-                <span className="material-symbols-outlined text-lg">link</span>
+                <span className="material-symbols-outlined text-base">link</span>
               </button>
             </div>
           </div>
+
+          {/* Navigation Column */}
+          <div className="md:col-span-3 md:col-start-7">
+            <h4 className="font-sans text-[10px] uppercase tracking-[0.25em] text-stone-500 mb-5">Explore</h4>
+            <div className="flex flex-col gap-3">
+              {[
+                { to: "/",        label: "Home"     },
+                { to: "/gallery", label: "Gallery"  },
+                { to: "/videos",  label: "Videos"   },
+                { to: "/yearbook",label: "Yearbook" },
+                { to: "/classroom",label: "Classroom" },
+                { to: "/messages",label: "Messages" },
+              ].map(({ to, label }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className="font-sans text-stone-500 text-xs hover:text-primary transition-colors duration-300 link-underline w-fit"
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Quote Column */}
+          <div className="md:col-span-3 md:col-start-10">
+            <h4 className="font-sans text-[10px] uppercase tracking-[0.25em] text-stone-500 mb-5">A Parting Thought</h4>
+            <blockquote className="font-serif italic text-stone-400 text-sm leading-relaxed border-l border-primary/20 pl-4">
+              "Do not go where the path may lead, go instead where there is no path and leave a trail."
+              <footer className="mt-3 font-sans text-[10px] not-italic text-stone-600 uppercase tracking-wider">— Ralph Waldo Emerson</footer>
+            </blockquote>
+          </div>
         </div>
 
-        <div className="border-t border-stone-800/30 pt-8 text-center">
-          <div className="font-sans text-stone-500 text-[10px] tracking-widest uppercase">
-            © Class of 2023 to 2026 • Farewell 2026 • Forging Futures
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-stone-800/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="pulse-dot" />
+            <span className="font-sans text-stone-600 text-[10px] tracking-widest uppercase">
+              Class of 2023–2026 • Aurelian Legacy
+            </span>
           </div>
+          <span className="font-sans text-stone-700 text-[10px] tracking-widest uppercase">
+            © {year} Farewell 2026 • Forging Futures
+          </span>
         </div>
       </div>
     </footer>
