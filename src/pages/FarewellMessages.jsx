@@ -41,38 +41,39 @@ export default function FarewellMessages() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addHeart = async (id) => {
-    // If already liked on this device, or pending, do nothing
-    if (hearts[id] || pendingLikes.has(id) || animatingHeart === id) return;
+  const toggleHeart = async (id) => {
+    // Block if an update is already in-flight for this message
+    if (pendingLikes.has(id) || animatingHeart === id) return;
 
-    // 1. Mark as liked locally right away
-    const newHearts = { ...hearts, [id]: true };
+    const isLiked = !!hearts[id];
+    const newHearts = { ...hearts, [id]: !isLiked };
+
+    // 1. Instantly toggle heart color
     setHearts(newHearts);
     localStorage.setItem("gala-hearts", JSON.stringify(newHearts));
     setAnimatingHeart(id);
     setTimeout(() => setAnimatingHeart(null), 300);
 
-    // 2. Optimistically bump the count on screen immediately
+    // 2. Optimistically update count on screen
     setMessages(prev => prev.map(msg =>
-      msg.id === id ? { ...msg, likes: (msg.likes || 0) + 1 } : msg
+      msg.id === id ? { ...msg, likes: Math.max(0, (msg.likes || 0) + (isLiked ? -1 : 1)) } : msg
     ));
 
-    // 3. Lock this message while the Firebase update is in-flight
+    // 3. Lock message while Firebase update is in-flight
     setPendingLikes(prev => new Set([...prev, id]));
 
-    // 4. Send +1 to Firebase
+    // 4. Send the real +1 or -1 to Firebase
     if (typeof id === 'string' && id.length > 10) {
       try {
         const msgRef = doc(db, "messages", id);
-        await updateDoc(msgRef, { likes: increment(1) });
+        await updateDoc(msgRef, { likes: increment(isLiked ? -1 : 1) });
       } catch (error) {
         console.error("Error updating likes:", error);
         // Revert on failure
-        const reverted = { ...newHearts, [id]: false };
-        setHearts(reverted);
-        localStorage.setItem("gala-hearts", JSON.stringify(reverted));
+        setHearts({ ...hearts, [id]: isLiked });
+        localStorage.setItem("gala-hearts", JSON.stringify({ ...hearts, [id]: isLiked }));
         setMessages(prev => prev.map(msg =>
-          msg.id === id ? { ...msg, likes: Math.max(0, (msg.likes || 1) - 1) } : msg
+          msg.id === id ? { ...msg, likes: Math.max(0, (msg.likes || 0) + (isLiked ? 1 : -1)) } : msg
         ));
       } finally {
         // 5. Release lock
@@ -171,14 +172,13 @@ export default function FarewellMessages() {
                 </div>
                 {/* Heart */}
                 <button
-                  onClick={() => addHeart(msg.id)}
-                  disabled={hearts[msg.id] || pendingLikes.has(msg.id)}
-                  title={hearts[msg.id] ? "You already liked this" : "Like this message"}
+                  onClick={() => toggleHeart(msg.id)}
+                  disabled={pendingLikes.has(msg.id)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all border-none ${
-                    hearts[msg.id]
-                      ? "bg-red-500/10 text-red-400 cursor-default"
-                      : pendingLikes.has(msg.id)
-                        ? "cursor-wait opacity-70 bg-surface-container-high text-on-surface-variant"
+                    pendingLikes.has(msg.id)
+                      ? "cursor-wait opacity-70 bg-surface-container-high text-on-surface-variant"
+                      : hearts[msg.id]
+                        ? "cursor-pointer bg-red-500/10 text-red-400"
                         : "cursor-pointer bg-surface-container-high text-on-surface-variant hover:text-red-400 hover:bg-red-500/10"
                   }`}
                 >
