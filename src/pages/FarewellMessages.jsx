@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { defaultMessages } from "../data/messages";
 import Toast from "../components/Toast";
-import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function FarewellMessages() {
@@ -28,12 +28,26 @@ export default function FarewellMessages() {
     return () => unsubscribe();
   }, []);
 
-  const toggleHeart = (id) => {
-    const updated = { ...hearts, [id]: !hearts[id] };
-    setHearts(updated);
-    localStorage.setItem("gala-hearts", JSON.stringify(updated));
+  const toggleHeart = async (id) => {
+    const isLiked = hearts[id];
+    const newHearts = { ...hearts, [id]: !isLiked };
+    
+    setHearts(newHearts);
+    localStorage.setItem("gala-hearts", JSON.stringify(newHearts));
     setAnimatingHeart(id);
     setTimeout(() => setAnimatingHeart(null), 300);
+
+    // If it's a Firebase message (ID length > 10), sync the like to everyone
+    if (typeof id === 'string' && id.length > 10) {
+      try {
+        const msgRef = doc(db, "messages", id);
+        await updateDoc(msgRef, {
+          likes: increment(isLiked ? -1 : 1)
+        });
+      } catch (error) {
+        console.error("Error updating likes:", error);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -47,6 +61,7 @@ export default function FarewellMessages() {
       avatar: null,
       source: null,
       type: "student",
+      likes: 0,
       createdAt: serverTimestamp()
     };
     
@@ -132,7 +147,9 @@ export default function FarewellMessages() {
                     style={{ fontVariationSettings: hearts[msg.id] ? "'FILL' 1" : "'FILL' 0" }}>
                     favorite
                   </span>
-                  <span className="text-[10px] font-bold">{hearts[msg.id] ? 1 : 0}</span>
+                  <span className="text-[10px] font-bold">
+                    {(typeof msg.id === 'string' && msg.id.length > 10) ? (msg.likes || 0) : (hearts[msg.id] ? 1 : 0)}
+                  </span>
                 </button>
               </div>
             </article>
