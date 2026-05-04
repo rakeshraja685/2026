@@ -1,22 +1,32 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { defaultMessages } from "../data/messages";
 import Toast from "../components/Toast";
+import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function FarewellMessages() {
-  const [messages, setMessages] = useState(() => {
-    try {
-      const saved = localStorage.getItem("gala-messages");
-      return saved ? JSON.parse(saved) : defaultMessages;
-    } catch {
-      return defaultMessages;
-    }
-  });
+  const [messages, setMessages] = useState(defaultMessages);
   const [hearts, setHearts] = useState(() => {
     try { return JSON.parse(localStorage.getItem("gala-hearts") || "{}"); } catch { return {}; }
   });
   const [animatingHeart, setAnimatingHeart] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [formData, setFormData] = useState({ name: "", message: "", anonymous: false });
+
+  useEffect(() => {
+    // Listen to messages from Firestore in real-time
+    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const msgs = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      // Show cloud messages first, then the default static ones
+      setMessages([...msgs, ...defaultMessages]);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleHeart = (id) => {
     const updated = { ...hearts, [id]: !hearts[id] };
@@ -26,23 +36,29 @@ export default function FarewellMessages() {
     setTimeout(() => setAnimatingHeart(null), 300);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.message.trim()) return;
+    
     const newMsg = {
-      id: Date.now(),
       name: formData.anonymous ? "Anonymous" : (formData.name || "Anonymous"),
       date: new Date().toLocaleDateString("en-US", { month: "long", day: "numeric" }),
       message: formData.message,
       avatar: null,
       source: null,
       type: "student",
+      createdAt: serverTimestamp()
     };
-    const updatedMessages = [newMsg, ...messages];
-    setMessages(updatedMessages);
-    localStorage.setItem("gala-messages", JSON.stringify(updatedMessages));
-    setFormData({ name: "", message: "", anonymous: false });
-    setShowToast(true);
+    
+    try {
+      // Save message to Firebase Database
+      await addDoc(collection(db, "messages"), newMsg);
+      setFormData({ name: "", message: "", anonymous: false });
+      setShowToast(true);
+    } catch (error) {
+      console.error("Error adding message: ", error);
+      alert("Failed to send message. Please make sure you have internet connection.");
+    }
   };
 
   const hideToast = useCallback(() => setShowToast(false), []);
