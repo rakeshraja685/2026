@@ -12,6 +12,8 @@ export default function FarewellMessages() {
   const [animatingHeart, setAnimatingHeart] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [formData, setFormData] = useState({ name: "", message: "", anonymous: false });
+  // Track which message IDs have a pending like update in-flight
+  const [pendingLikes, setPendingLikes] = useState(new Set());
 
   useEffect(() => {
     // Listen to messages from Firestore in real-time
@@ -21,35 +23,46 @@ export default function FarewellMessages() {
         id: doc.id,
         ...doc.data()
       }));
-      // Show cloud messages first, then the default static ones
-      setMessages([...msgs, ...defaultMessages]);
+      // Preserve optimistic like counts for messages that have pending updates
+      setMessages(prev => {
+        const prevMap = Object.fromEntries(prev.map(m => [m.id, m]));
+        const updatedMsgs = msgs.map(msg => {
+          // If this message has a pending like update, keep our optimistic count
+          if (pendingLikes.has(msg.id) && prevMap[msg.id]) {
+            return { ...msg, likes: prevMap[msg.id].likes };
+          }
+          return msg;
+        });
+        return [...updatedMsgs, ...defaultMessages];
+      });
     });
 
     return () => unsubscribe();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleHeart = async (id) => {
-    // Prevent double clicks while animating
-    if (animatingHeart === id) return;
+    // Block if already pending or animating for this message
+    if (pendingLikes.has(id) || animatingHeart === id) return;
 
     const isLiked = hearts[id];
     const newHearts = { ...hearts, [id]: !isLiked };
-    
-    // 1. Instantly update local heart color state
+
+    // 1. Instantly update local heart color
     setHearts(newHearts);
     localStorage.setItem("gala-hearts", JSON.stringify(newHearts));
     setAnimatingHeart(id);
     setTimeout(() => setAnimatingHeart(null), 300);
 
-    // 2. Instantly optimistically update the likes count number
-    setMessages(prev => prev.map(msg => {
-      if (msg.id === id) {
-        return { ...msg, likes: (msg.likes || 0) + (isLiked ? -1 : 1) };
-      }
-      return msg;
-    }));
+    // 2. Optimistically update the like count immediately on screen
+    setMessages(prev => prev.map(msg =>
+      msg.id === id ? { ...msg, likes: Math.max(0, (msg.likes || 0) + (isLiked ? -1 : 1)) } : msg
+    ));
 
-    // 3. Send the change to the server
+    // 3. Mark as pending so onSnapshot won't override our optimistic count
+    setPendingLikes(prev => new Set([...prev, id]));
+
+    // 4. Send the real update to Firebase
     if (typeof id === 'string' && id.length > 10) {
       try {
         const msgRef = doc(db, "messages", id);
@@ -61,6 +74,16 @@ export default function FarewellMessages() {
         // Revert on failure
         setHearts({ ...hearts, [id]: isLiked });
         localStorage.setItem("gala-hearts", JSON.stringify({ ...hearts, [id]: isLiked }));
+        setMessages(prev => prev.map(msg =>
+          msg.id === id ? { ...msg, likes: Math.max(0, (msg.likes || 0) + (isLiked ? 1 : -1)) } : msg
+        ));
+      } finally {
+        // 5. Remove pending lock — onSnapshot can now sync freely
+        setPendingLikes(prev => {
+          const next = new Set(prev);
+          next.delete(id);
+          return next;
+        });
       }
     }
   };
@@ -152,7 +175,12 @@ export default function FarewellMessages() {
                 {/* Heart */}
                 <button
                   onClick={() => toggleHeart(msg.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all border-none cursor-pointer ${
+                  disabled={pendingLikes.has(msg.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all border-none ${
+                    pendingLikes.has(msg.id)
+                      ? "cursor-wait opacity-70"
+                      : "cursor-pointer"
+                  } ${
                     hearts[msg.id]
                       ? "bg-red-500/10 text-red-400"
                       : "bg-surface-container-high text-on-surface-variant hover:text-red-400"
