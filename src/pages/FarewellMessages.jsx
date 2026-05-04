@@ -29,15 +29,27 @@ export default function FarewellMessages() {
   }, []);
 
   const toggleHeart = async (id) => {
+    // Prevent double clicks while animating
+    if (animatingHeart === id) return;
+
     const isLiked = hearts[id];
     const newHearts = { ...hearts, [id]: !isLiked };
     
+    // 1. Instantly update local heart color state
     setHearts(newHearts);
     localStorage.setItem("gala-hearts", JSON.stringify(newHearts));
     setAnimatingHeart(id);
     setTimeout(() => setAnimatingHeart(null), 300);
 
-    // If it's a Firebase message (ID length > 10), sync the like to everyone
+    // 2. Instantly optimistically update the likes count number
+    setMessages(prev => prev.map(msg => {
+      if (msg.id === id) {
+        return { ...msg, likes: (msg.likes || 0) + (isLiked ? -1 : 1) };
+      }
+      return msg;
+    }));
+
+    // 3. Send the change to the server
     if (typeof id === 'string' && id.length > 10) {
       try {
         const msgRef = doc(db, "messages", id);
@@ -46,6 +58,9 @@ export default function FarewellMessages() {
         });
       } catch (error) {
         console.error("Error updating likes:", error);
+        // Revert on failure
+        setHearts({ ...hearts, [id]: isLiked });
+        localStorage.setItem("gala-hearts", JSON.stringify({ ...hearts, [id]: isLiked }));
       }
     }
   };
