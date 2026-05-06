@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Layout from "./components/layout/Layout";
 import LandingPage from "./pages/LandingPage";
 import ClassYearbook from "./pages/ClassYearbook";
@@ -7,6 +7,7 @@ import FarewellMessages from "./pages/FarewellMessages";
 import Gallery from "./pages/Gallery";
 import Classroom from "./pages/Classroom";
 import Videos from "./pages/Videos";
+import Login from "./pages/Login";
 
 // Scroll-to-top on route change + scroll progress bar
 function ScrollManager() {
@@ -17,7 +18,6 @@ function ScrollManager() {
   }, [location.pathname]);
 
   useEffect(() => {
-    // Inject scroll progress bar element
     let bar = document.getElementById("scroll-progress");
     if (!bar) {
       bar = document.createElement("div");
@@ -39,12 +39,45 @@ function ScrollManager() {
   return null;
 }
 
+// Guard: redirect to /login if not authenticated via sessionStorage
+function PrivateRoute({ children }) {
+  const isAuth = sessionStorage.getItem("farewell_auth") === "true";
+  return isAuth ? children : <Navigate to="/login" replace />;
+}
+
 function App() {
+  // Track auth state reactively so navigation triggers re-render
+  const [isAuth, setIsAuth] = useState(
+    () => sessionStorage.getItem("farewell_auth") === "true"
+  );
+
+  // Listen for sessionStorage changes (e.g. after login navigates back)
+  useEffect(() => {
+    const check = () =>
+      setIsAuth(sessionStorage.getItem("farewell_auth") === "true");
+    window.addEventListener("storage", check);
+    return () => window.removeEventListener("storage", check);
+  }, []);
+
   return (
     <BrowserRouter>
       <ScrollManager />
       <Routes>
-        <Route path="/" element={<Layout />}>
+        {/* Public: login */}
+        <Route
+          path="/login"
+          element={isAuth ? <Navigate to="/" replace /> : <Login />}
+        />
+
+        {/* Private: everything else */}
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Layout />
+            </PrivateRoute>
+          }
+        >
           <Route index element={<LandingPage />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="yearbook" element={<ClassYearbook />} />
