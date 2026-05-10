@@ -346,7 +346,7 @@ export default function LandingPage() {
 
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 relative z-10">
           <AnimatedCounter end={1095} label="Days Together"   icon="calendar_today"         />
-          <AnimatedCounter end={25}   label="Videos"          icon="movie"                  />
+          <AnimatedCounter end={29}   label="Videos"          icon="movie"                  />
           <AnimatedCounter end={284}  label="Photos Taken"    icon="photo_camera"            />
           <AnimatedCounter end="∞"    label="Inside Jokes"    icon="sentiment_very_satisfied"/>
         </div>
