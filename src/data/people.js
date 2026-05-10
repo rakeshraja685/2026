@@ -66,6 +66,16 @@ export const people = [
     funFact: "The one everyone could always count on, no matter what.",
     category: "Arts & Culture",
   },
+  {
+    id: 7,
+    name: "Jeevan",
+    nickname: "Jeevan",
+    photo: "/images/people/Jeevan.jpg",
+    superlative: "Most Dependable Friend",
+    quote: "A journey of a thousand miles begins with a single step.",
+    funFact: "Always bringing great energy to the group.",
+    category: "Legacy Leaders",
+  },
 ];
 
 export const categories = ["All Scholars", "Arts & Culture", "Innovators", "Legacy Leaders"];
