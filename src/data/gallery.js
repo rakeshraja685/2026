@@ -337,4 +337,7 @@ export const galleryVideos = [
   { id: "v24", src: "https://drive.google.com/file/d/10AgKWjUeEbF52q9wvrVrN16XjhPnvpzw/preview", title: "Happy Times", date: "May 2026" },
   { id: "v25", src: "https://drive.google.com/file/d/1GXbZb0TiVdykXxzlZ4-kDJ9bKANwhYfm/preview", title: "Looking Back", date: "May 2026" },
   { id: "v26", src: "https://drive.google.com/file/d/1qxj4Q4LBkekKxsFNPYx3DekBYNWYndQ1/preview", title: "Golden Days", date: "May 2026" },
+  { id: "v27", src: "https://drive.google.com/file/d/12Q6__tKN543dhjslzDGiv8NPjAXR2g31/preview", title: "Cherished Moments", date: "May 2026" },
+  { id: "v28", src: "https://drive.google.com/file/d/1G5qHnfyRasxKaidP8fe7trNxKyJ9RoOf/preview", title: "Farewell Vibes", date: "May 2026" },
+  { id: "v29", src: "https://drive.google.com/file/d/1f-EDHMKBei6WABDYwnCK-HtbUt9Gs6JI/preview", title: "Last Memories", date: "May 2026" },
 ];
