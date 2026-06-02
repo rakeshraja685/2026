@@ -129,6 +129,7 @@ export default function LandingPage() {
               key={src}
               src={src}
               alt={`Slide ${index + 1}`}
+              style={{ willChange: "opacity", WebkitTransform: "translateZ(0)", transform: "translateZ(0)" }}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2500ms] ease-in-out ${
                 index === currentSlide ? "opacity-35" : "opacity-0"
               }`}
